@@ -2,12 +2,12 @@ Package: hutan
 Title: A collection of tools for phylogenetic tree manipulation
 Version: 0.0.0.9000
 Authors@R: person("Casey", "Dunn", , "casey_dunn@brown.edu", role = c("aut", "cre"))
-Description: A collection of tools for phylogenetic tree manipulation. It is named 
-after the Indonesian word for forest.
+Description: A collection of tools for phylogenetic tree manipulation. It is named after the Indonesian word for forest.
 Depends: R (>= 3.2.0)
 License: GPLv3 (https://www.gnu.org/copyleft/gpl.html)
 LazyData: true
 Collate:
-    'utility_functions.r'
+    'utility_functions.R'
+    'hutan.R'
 Imports:
     ape
