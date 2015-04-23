@@ -2,6 +2,13 @@
 
 Run `dev_help('hutan')` or `help(hutan)` for more information.
 
+
+## Installing
+
+    library(devtools)
+    install_bitbucket('caseywdunn')
+    install_bitbucket('hutan')
+
 ## Development
 
 This package has been built with devtools: 
