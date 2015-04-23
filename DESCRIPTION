@@ -7,3 +7,7 @@ after the Indonesian word for forest.
 Depends: R (>= 3.2.0)
 License: GPLv3 (https://www.gnu.org/copyleft/gpl.html)
 LazyData: true
+Collate:
+    'utility_functions.r'
+Imports:
+    ape
