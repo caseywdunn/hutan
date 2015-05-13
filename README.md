@@ -6,7 +6,7 @@ Run `dev_help('hutan')` or `help(hutan)` for more information.
 ## Installing
 
     library(devtools)
-    install_bitbucket('hutan', 'caseywdunn')
+    install_bitbucket('caseywdunn/hutan')
 
 ## Development
 
