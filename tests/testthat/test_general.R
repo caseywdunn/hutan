@@ -11,5 +11,11 @@ edge_diff = siphonophore_ml$edge.length - zc$edge.length
 mod_edges = which( edge_diff > 0 )
 
 test_that("correct edges are modified by zero_constrained", {
-  expect_equal( mod_edges, c(12, 22, 57) )
+	expect_equal( mod_edges, c(12, 22, 57) )
+})
+
+test_that("monophyly is correctly evaluated",{
+	expect_equal( is_monophyletic( siphonophore_ml, c("Hippopodius_hippopus_Pacific","Hippopodius_hippopus_Atlantic") ), TRUE )
+	expect_equal( is_monophyletic( siphonophore_ml, c("Hippopodius_hippopus_Pacific","Clausophyes_ovata") ), FALSE )
+	expect_equal( is_monophyletic( siphonophore_ml, c("Diphyes_dispar","Abylopsis_tetragona","Chelophyes_appendiculata") ), TRUE ) # Check across root to make sure evaluation is unrooted
 })

@@ -38,15 +38,15 @@ incompatible_edges <- function( phy1, phy2 ){
 	return ( unlist( incompat ) )
 }
 
-#' Test if a set of tips, specified as a vector of node numbers, forms a monophyletic 
+#' Test if a set of tips, specified as a vector of tip labels, forms a monophyletic 
 #' group in a given tree. The test is unrooted, i.e. the group can span the root.
 #' 
 #' @param phy The tree under consideration
-#' @param x A vector of the node numbers of the tips in question
+#' @param x A vector of the labels of the tips in question
 #' @return A boolean, TRUE if the tips form a monophyletic group.
 is_monophyletic <- function( phy, x ){
-	bi = get_bipartitions( phy )
-	return ( FALSE )
+	bi_list = get_bipartitions( phy )
+	return ( ! is_incompatible_with_set( x, bi_list, phy ) )
 }
 
 #' Check if bipartition bi is incompatible with the bipartitions in bi_list. 
