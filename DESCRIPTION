@@ -9,6 +9,11 @@ LazyData: true
 Collate: 
     'utility_functions.R'
     'hutan.R'
+    'siphonophore_constraint.R'
+    'siphonophore_ml.R'
 Imports: 
     ape
-Suggests: testthat
+Suggests: 
+	testthat,
+    roxygen2,
+    devtools
