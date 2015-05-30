@@ -45,7 +45,7 @@ incompatible_edges <- function( phy1, phy2 ){
 #' @param x A vector of the node numbers of the tips in question
 #' @return A boolean, TRUE if the tips form a monophyletic group.
 is_monophyletic <- function( phy, x ){
-	
+	bi = get_bipartitions( phy )
 	return ( FALSE )
 }
 
