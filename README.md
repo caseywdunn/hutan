@@ -23,6 +23,6 @@ and running some combination of the following:
     library(devtools)
     load_all()
     document()
-    dev_example('hutan')
+    test()
     dev_help('hutan')
     
