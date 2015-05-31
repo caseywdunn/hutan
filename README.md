@@ -8,9 +8,29 @@ Run `dev_help('hutan')` or `help(hutan)` for more information.
     library(devtools)
     install_bitbucket('caseywdunn/hutan')
 
+## Documentation
+
+
+## Example usage
+
+### Create a zero-constrained tree
+
+The following creates a zero-constrained tree as described by Susko 2014 (http://dx.doi.org/10.1093/molbev/msu039)
+
+	library(hutan)
+	data( siphonophore_ml )
+	data( siphonophore_constraint )
+
+	zc <- zero_constrained( siphonophore_ml, siphonophore_constraint )
+	plot( zc )
+
+## Citing
+
+
+
 ## Development
 
-This package has been built with devtools: 
+This package is built with devtools: 
 https://github.com/hadley/devtools
 
 More on package development with devtools can be found at the 

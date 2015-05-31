@@ -1,0 +1,19 @@
+citHeader("Hutan has been developed for a few projects in our lab, but does not yet have its own publication. To cite hutan in publications for now use:")
+
+citEntry(entry = "Article",
+  title        = "Automation and Evaluation of the SOWH Test of Phylogenetic Topologies with SOWHAT",
+  author       = personList(as.person("SH Church"),
+                   as.person("JF Ryan"), as.person("CW Dunn")),
+  journal      = "bioRxiv",
+  year         = "2014",
+  url          = "http://dx.doi.org/10.1101/005264",
+
+  textVersion  =
+  paste("Church, SH, JF Ryan, CW Dunn (20115).",
+        "Automation and Evaluation of the SOWH Test of Phylogenetic Topologies with SOWHAT.",
+        "bioRxiv",
+        "URL http://dx.doi.org/10.1101/005264.")
+)
+
+
+Church, SH, JF Ryan, CW Dunn (preprint) Automation and Evaluation of the SOWH Test of Phylogenetic Topologies with SOWHAT. bioRxiv. doi:10.1101/005264.
