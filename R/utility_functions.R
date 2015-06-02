@@ -12,18 +12,18 @@ library(ape)
 #' @examples
 #' zc <- zero_constrained( ml, constraint )
 zero_constrained <- function ( phy_resolved, phy_constraint, epsilon=0.000001 ){
-	phy_resolved$edge.length[ incompatible_edges(  phy_resolved, phy_constraint ) ] <- epsilon
+	phy_resolved$edge.length[ ! compatible_edges(  phy_resolved, phy_constraint ) ] <- epsilon
 	return( phy_resolved )
 }
 
-#' Identify the edges in one phylo object that are incompatible with the edges in another 
+#' Identify the edges in one phylo object that are compatible with the edges in another 
 #' phylo object. Requires the same tip labels for each tree.
 #' 
 #' @param phy1 The tree under consideration
 #' @param phy2 The tree to be compared to
 #' @return A boolean vector corresponding to the edges in phy1. Each element is FALSE if 
-#' the edge is compatible with phy2, or TRUE if incompatible.
-incompatible_edges <- function( phy1, phy2 ){
+#' the edge is iscompatible with phy2, or TRUE if compatible.
+compatible_edges <- function( phy1, phy2 ){
 	
 	# First check to see that the two trees have the same tips
 	if( setequal(phy1$tip.label, phy2$tip.label) == FALSE ) {
@@ -33,9 +33,9 @@ incompatible_edges <- function( phy1, phy2 ){
 	bi1 = get_bipartitions( phy1 )
 	bi2 = get_bipartitions( phy2 )
 	
-	incompat = lapply( bi1, is_compatible_with_set, bi_list=bi2, phy=phy1 )
+	compat = lapply( bi1, is_compatible_with_set, bi_list=bi2, phy=phy1 )
 	
-	return ( ! unlist( incompat ) )
+	return ( unlist( compat ) )
 }
 
 #' Test if a set of tips, specified as a vector of tip labels, forms a monophyletic 
