@@ -60,8 +60,8 @@ is_monophyletic <- function( phy, x ){
 #' @return TRUE if bi is incompatible with any bipartition in bi_list, otherwise FALSE.
 is_incompatible_with_set <- function( bi, bi_list, phy ) {
 
-	incompatible <- lapply( bi_list, are_bipartitions_incompatible, bi2=bi, phy=phy )
-	return ( any( unlist( incompatible ) ) )
+	compatible <- lapply( bi_list, are_bipartitions_compatible, bi2=bi, phy=phy )
+	return ( any( ! unlist( compatible ) ) )
 }
 
 #' Check if two bipartitions drawn from trees with the same tips are incompatible with eachother. 
@@ -73,7 +73,7 @@ is_incompatible_with_set <- function( bi, bi_list, phy ) {
 #' @param phy A phylo object describing a tree that includes all tips under investigation. 
 #' This is used to infer the other half of each bipartition.
 #' @return TRUE if bi1 is incompatible with bi2, otherwise FALSE.
-are_bipartitions_incompatible <- function( bi1, bi2, phy ) {
+are_bipartitions_compatible <- function( bi1, bi2, phy ) {
 	
 	labels = phy$tip.label
 	
@@ -95,7 +95,7 @@ are_bipartitions_incompatible <- function( bi1, bi2, phy ) {
 	
 	compatible = left1_compat | right1_compat
 	
-	return( ! compatible )
+	return( compatible )
 }
 
 #' Get tips and labels of a phylo object.
