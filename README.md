@@ -14,7 +14,8 @@ ackage.
 
 ## Documentation
 
-See the manual, [hutan_manual.pdf](https://bitbucket.org/caseywdunn/hutan/src/master/hutan_manual.pdf)
+See the manual, 
+[hutan_manual.pdf](https://bitbucket.org/caseywdunn/hutan/src/master/hutan_manual.pdf)
 
 ## Example usage
 
@@ -46,7 +47,9 @@ In R, run the following:
 ## Development
 
 This package is built with the excellent devtools 
-(https://github.com/hadley/devtools).
+(https://github.com/hadley/devtools). Extensive explanations on using devtools 
+to create R packages is available in the book 
+[R Packages](http://r-pkgs.had.co.nz/).
 
 Development typically involves `cd`ing to the package directory, launching R, 
 and running some combination of the following: 
