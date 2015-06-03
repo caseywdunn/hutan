@@ -17,4 +17,6 @@ Imports:
 Suggests: 
 	testthat,
     roxygen2,
-    devtools
+    devtools,
+    knitr
+VignetteBuilder: knitr

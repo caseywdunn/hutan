@@ -62,6 +62,7 @@ and running some combination of the following:
     test()
     document()
     check() # A wrapper for R CMD check, see http://r-pkgs.had.co.nz/check.html#check
+    buid() # Create package bundle, including executed vignettes
 
 To regenerate the pdf manual, run the following shell command in the package directory:
 
