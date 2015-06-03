@@ -33,7 +33,7 @@ The following creates a zero-constrained tree as described by Susko 2014
 
 ## Citing
 
-To find out how to cite hutan, run hte following in R:
+To find out how to cite hutan, run the following in R:
 
     citation("hutan")
 
