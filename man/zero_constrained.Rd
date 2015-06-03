@@ -13,7 +13,7 @@ tree.}
 
 \item{phy_constraint}{A partially resolved constraint tree.}
 
-\item{epsilon}{}
+\item{epsilon}{The value to replace the branch length with}
 }
 \value{
 A phylo object containing a tree that is the same as phy_resolved, except that
@@ -24,6 +24,8 @@ Generates the "zero-constrained" tree described by Susko 2014
 (http://dx.doi.org/10.1093/molbev/msu039)
 }
 \examples{
-zc <- zero_constrained( ml, constraint )
+data( siphonophore_ml )
+data( siphonophore_constraint )
+zc <- zero_constrained( siphonophore_ml, siphonophore_constraint )
 }
 

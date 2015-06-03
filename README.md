@@ -59,6 +59,7 @@ and running some combination of the following:
     load_all()
     test()
     document()
+    check() # A wrapper for R CMD check
 
 To regenerate the pdf manual, run the following shell command in the package directory:
 

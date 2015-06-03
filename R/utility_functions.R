@@ -4,11 +4,14 @@
 #' @param phy_resolved A fully resolved phylogeny stored as a phylo object, e.g. an ML 
 #' tree.
 #' @param phy_constraint A partially resolved constraint tree.
-#' @param epsilon 
+#' @param epsilon The value to replace the branch length with
 #' @return A phylo object containing a tree that is the same as phy_resolved, except that 
 #' the length of edges that are incompatible with phy_constraint are replaced with epsilon.
 #' @examples
-#' zc <- zero_constrained( ml, constraint )
+#' data( siphonophore_ml )
+#' data( siphonophore_constraint )
+#' zc <- zero_constrained( siphonophore_ml, siphonophore_constraint )
+
 zero_constrained <- function ( phy_resolved, phy_constraint, epsilon=0.000001 ){
 	phy_resolved$edge.length[ ! compatible_edges(  phy_resolved, phy_constraint ) ] <- epsilon
 	return( phy_resolved )
