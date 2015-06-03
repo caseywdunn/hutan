@@ -54,6 +54,6 @@ and running some combination of the following:
 	options(error=traceback) # Get line numbers for errors
     library(devtools)
     load_all()
-    document()
     test()
+    document()
     

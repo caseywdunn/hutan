@@ -1,5 +1,3 @@
-library(ape)
-
 #' Generates the "zero-constrained" tree described by Susko 2014 
 #' (http://dx.doi.org/10.1093/molbev/msu039)
 #' 
