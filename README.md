@@ -14,7 +14,7 @@ ackage.
 
 ## Documentation
 
-In R, run `help(hutan)`.
+See the manual, [hutan_manual.pdf](https://bitbucket.org/caseywdunn/hutan/src/master/hutan_manual.pdf)
 
 ## Example usage
 
@@ -56,4 +56,8 @@ and running some combination of the following:
     load_all()
     test()
     document()
+
+To regenerate the pdf manual, run the following shell command in the package directory:
+
+    R CMD Rd2pdf . --output=hutan_manual.pdf
     
