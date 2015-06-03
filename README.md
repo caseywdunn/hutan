@@ -15,7 +15,7 @@ ackage.
 ## Documentation
 
 See the manual, 
-[hutan_manual.pdf](https://bitbucket.org/caseywdunn/hutan/src/master/hutan_manual.pdf)
+[hutan-manual.pdf](https://bitbucket.org/caseywdunn/hutan/src/master/hutan-manual.pdf)
 
 ## Example usage
 
@@ -59,9 +59,9 @@ and running some combination of the following:
     load_all()
     test()
     document()
-    check() # A wrapper for R CMD check
+    check() # A wrapper for R CMD check, see http://r-pkgs.had.co.nz/check.html#check
 
 To regenerate the pdf manual, run the following shell command in the package directory:
 
-    R CMD Rd2pdf . --output=hutan_manual.pdf
+    R CMD Rd2pdf . --force --output=hutan-manual.pdf
     
