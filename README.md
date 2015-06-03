@@ -33,13 +33,15 @@ The following creates a zero-constrained tree as described by Susko 2014
 
 ## Citing
 
-R has been developed in support of multiple projects, but doesn't yet 
-have a dedicated manuscript that describes it. For now, please cite 
-[this preprint](http://dx.doi.org/10.1101/005264).
+To find out how to cite hutan, run hte following in R:
+
+    citation("hutan")
 
 ## Installing
 
-In R, run the following:
+### From the git repository
+
+First, install the [devtools](https://github.com/hadley/devtools) package. Then, run the following in R:
 
     library(devtools)
     install_bitbucket('caseywdunn/hutan')
