@@ -1,3 +1,16 @@
+#' Decomposes a single tree into a series of subtrees designated by internal
+#' node numbers
+#' 
+#' @param phy The tree to be decomposed, as an ape phylo object
+#' @param x A vector of internal node numbers. The tree phy will be cut on each branch 
+#' that subtends each of these nodes.
+#' @return A list of phylo objects 
+decompose <- function( phy, x ){
+	
+}
+
+
+
 #' Generates the "zero-constrained" tree described by Susko 2014 
 #' (http://dx.doi.org/10.1093/molbev/msu039)
 #' 
