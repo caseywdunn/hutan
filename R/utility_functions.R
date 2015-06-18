@@ -48,6 +48,16 @@ decompose <- function( phy, x ){
 		}
 		else {
 			# The tree has no nodes to clip
+
+			# Reset the node names
+			if ( null_names ){
+				focal$node.label = NULL
+			}
+			else {
+				focal$node.label = sub( "F$", "", focal$node.label, perl=TRUE )
+			}
+
+			# Throw it on the finished stack
 			done_cutting[[ length( done_cutting ) + 1 ]] <- focal
 		}
 
