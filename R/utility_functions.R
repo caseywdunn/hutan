@@ -6,9 +6,85 @@
 #' that subtends each of these nodes.
 #' @return A list of phylo objects 
 decompose <- function( phy, x ){
+	# Check to see if the tree had node names. If not, create empty values.
+	null_names = is.null(phy[["node.label"]])
+	if ( null_names ){
+		phy$node.label = rep( "", phy$Nnode )
+	}
+
+	# Create a boolean vector that corresponds to node.label and indicates which 
+	# nodes to cut.
+	ntips = length ( phy$tip.label )
+	indeces = ( ntips + 1 ):( ntips + phy$Nnode ) 
+	#indeces = 1:phy$Nnode
+	cut_bool = ( indeces %in% x )
 	
+	# Add an indicator to the node lable to specify whether or not the tree should be cut there
+	phy$node.label[ cut_bool ] = paste( phy$node.label[ cut_bool ], "T", sep="" )
+	phy$node.label[ ! cut_bool ] = paste( phy$node.label[ ! cut_bool ], "F", sep="" )
+
+
+	to_cut = list( phy )
+	done_cutting = list()
+
+	while ( length( to_cut ) > 0 ){
+		# Pop a tree off the front of the list
+		focal = to_cut[[ 1 ]]
+		to_cut[[ 1 ]] = NULL
+
+
+		target_nodes = grep( "T$", focal$node.label, perl=TRUE )
+		
+		if ( length( target_nodes ) > 0 ){
+			# Only worry about the first node, cut others in subsequent rounds.
+			# Need to add number of tips to convert from element number to node number
+			target_node = target_nodes[1] + length( focal$tip.label )
+
+			# Updated the node name to indicate that it is already processed
+			focal$node.label[ target_node - length( focal$tip.label ) ] = sub( "T$", "F", focal$node.label[ target_node - length( focal$tip.label ) ], perl=TRUE )
+
+			# Cut the tree and put the subtrees back on the stack
+			to_cut = c( cut_tree( focal, target_node ), to_cut )
+		}
+		else {
+			# The tree has no nodes to clip
+			done_cutting[[ length( done_cutting ) + 1 ]] <- focal
+		}
+
+	}
+
+	# Get rid of indicators and return the list of processed trees
+
+	return( done_cutting )
+
 }
 
+#' Cuts a single tree on the branch subtending a specified node
+#' 
+#' @param phy The tree to be cut, as an ape phylo object
+#' @param x An internal node number. The tree phy will be cut on the branch 
+#' that subtends this nodes.
+#' @return A list of phylo objects that are the subtrees
+cut_tree <- function( phy, x ){
+	# Get the number of the branch that subtends the node
+	cut_branches = which( phy$edge[,2] == x )
+
+	if ( length( cut_branches ) < 1 ){
+		plot(phy)
+		nodelabels()
+		stop( paste ( "No edge subtending requested node! Requested node: ", x, sep='' ) )
+	} 
+
+	if ( length( cut_branches ) > 1 ){
+		stop( "More than one subtending branch!" )
+	} 
+
+	tips1 = bipartition_for_edge_by_label( cut_branches[1], phy )
+	tips2 = flip_bipartition( phy, tips1 )
+
+	return( list( drop.tip( phy, tips1 ), drop.tip( phy, tips2 ) ) )
+
+}
 
 
 #' Generates the "zero-constrained" tree described by Susko 2014 
@@ -209,6 +285,21 @@ bipartition_for_edge_by_label <- function( edge, phy ){
 	return( phy$tip.label[ bipartition_for_edge( phy, edge ) ]	 )
 
 }
+
+#' Given a tree and a bipartition, described as a vector of tip labels on one side of 
+#' of the bipartition, return the same bipartition but defined by the tip labels on 
+#' the other side of the bipartition.
+#' 
+#' @param phy A phylo object that specifies the tree.
+#' @param bi The bipartition.
+#' @return A vector of tip nodes (specified by labels) that define one half of the 
+#' bipartition (the other half is the set of tip nodes that are provided as bi).
+flip_bipartition <- function( phy, bi ){
+	
+	return( phy$tip.label[ ! phy$tip.label %in% bi ] )
+
+}
+
 
 #' Get a list of all the bipartitions in a tree.
 #' 
