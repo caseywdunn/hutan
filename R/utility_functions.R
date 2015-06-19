@@ -23,10 +23,23 @@ decompose <- function( phy, x ){
 	phy$node.label[ cut_bool ] = paste( phy$node.label[ cut_bool ], "T", sep="" )
 	phy$node.label[ ! cut_bool ] = paste( phy$node.label[ ! cut_bool ], "F", sep="" )
 
-
-	to_cut = list( phy )
+	
 	done_cutting = list()
 
+	# First, process nodes that are tips
+	tipx = x[ x <= length(phy$tip.label) ]
+
+	# Add the tips to the output, as single tip trees
+	all_tips = 1:ntips
+	for ( tip in tipx ){
+		done_cutting[[ length( done_cutting ) + 1 ]] <- drop.tip( phy, all_tips[ all_tips != tip ] )
+	}
+
+	# Now remove the tips from the tree to be processed
+	phy = drop.tip( phy, tipx )
+
+	# Now process internal nodes
+	to_cut = list( phy )
 	while ( length( to_cut ) > 0 ){
 		# Pop a tree off the front of the list
 		focal = to_cut[[ 1 ]]
