@@ -22,12 +22,40 @@ decompose <- function( phy, x ){
 	nodelabels()
 	tiplabels()
 
-	subtrees = lapply( unique( partitions ), function(partition) drop.tip( phy, which( partitions != partition ) ) )
-
+	subtrees = lapply( unique( partitions ), function(partition) safe.drop.tip( phy, which( partitions != partition ) ) )
 
 	return( subtrees )
 
 }
+
+#' Drops specified tips from a phylogeny. Like ape's drop.tip(), but it works when only a single tip is
+#  to be retained.
+#' 
+#' @param phy The tree, as an ape phylo object
+#' @param x A vector of tip numbers to be removed.
+#' @return The reduced tree, as a phylo object
+safe.drop.tip <- function( phy, tip ){
+	keep = 1:length( phy$tip.label )
+	cat("raw ", keep, "\n")
+	keep = keep[ ! keep %in% tip ]
+	cat("dropping ", tip, "\n")
+	cat("keeping ", keep, "\n")
+
+	if( length( keep ) == 0 ){
+		return( NULL )
+	}
+	else if ( length( keep ) == 1 ){
+		# Create a one-taxon tree and return it
+		text = paste( "(", phy$tip.label[ keep ], ");" )
+		return( read.tree( text=text ) )
+	}
+	else{
+		return( drop.tip( phy, tip ) )
+	}
+}
+
+
+
 
 #' Cuts a single tree on the branch subtending a specified node
 #' 
