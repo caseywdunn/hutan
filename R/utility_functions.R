@@ -45,9 +45,6 @@ safe.drop.tip <- function( phy, tip ){
 	}
 }
 
-
-
-
 #' Cuts a single tree on the branch subtending a specified node
 #' 
 #' @param phy The tree to be cut, as an ape phylo object
