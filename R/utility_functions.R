@@ -16,12 +16,6 @@ decompose <- function( phy, x ){
 		partitions[ tips ] = paste( partitions[ tips ], labelstring, sep="" )
 	}
 
-	cat ( x, "\n" )
-	cat (partitions, "\n")
-	plot(phy)
-	nodelabels()
-	tiplabels()
-
 	subtrees = lapply( unique( partitions ), function(partition) safe.drop.tip( phy, which( partitions != partition ) ) )
 
 	return( subtrees )
@@ -36,10 +30,7 @@ decompose <- function( phy, x ){
 #' @return The reduced tree, as a phylo object
 safe.drop.tip <- function( phy, tip ){
 	keep = 1:length( phy$tip.label )
-	cat("raw ", keep, "\n")
 	keep = keep[ ! keep %in% tip ]
-	cat("dropping ", tip, "\n")
-	cat("keeping ", keep, "\n")
 
 	if( length( keep ) == 0 ){
 		return( NULL )
