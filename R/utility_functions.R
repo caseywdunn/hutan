@@ -6,79 +6,26 @@
 #' that subtends each of these nodes.
 #' @return A list of phylo objects 
 decompose <- function( phy, x ){
-	# Check to see if the tree had node names. If not, create empty values.
-	null_names = is.null(phy[["node.label"]])
-	if ( null_names ){
-		phy$node.label = rep( "", phy$Nnode )
+
+	# Create a vactor that indicates which subtree each tip will be in
+	partitions = rep( "r", length(phy$tip.label) )
+
+	for (node in x){
+		labelstring = paste( "_", node, sep="")
+		tips = tip_descendants( phy, node )
+		partitions[ tips ] = paste( partitions[ tips ], labelstring, sep="" )
 	}
 
-	# Create a boolean vector that corresponds to node.label and indicates which 
-	# nodes to cut.
-	ntips = length ( phy$tip.label )
-	indeces = ( ntips + 1 ):( ntips + phy$Nnode ) 
-	#indeces = 1:phy$Nnode
-	cut_bool = ( indeces %in% x )
-	
-	# Add an indicator to the node lable to specify whether or not the tree should be cut there
-	phy$node.label[ cut_bool ] = paste( phy$node.label[ cut_bool ], "T", sep="" )
-	phy$node.label[ ! cut_bool ] = paste( phy$node.label[ ! cut_bool ], "F", sep="" )
+	cat ( x, "\n" )
+	cat (partitions, "\n")
+	plot(phy)
+	nodelabels()
+	tiplabels()
 
-	
-	done_cutting = list()
-
-	# First, process nodes that are tips
-	tipx = x[ x <= length(phy$tip.label) ]
-
-	# Add the tips to the output, as single tip trees
-	all_tips = 1:ntips
-	for ( tip in tipx ){
-		done_cutting[[ length( done_cutting ) + 1 ]] <- drop.tip( phy, all_tips[ all_tips != tip ] )
-	}
-
-	# Now remove the tips from the tree to be processed
-	phy = drop.tip( phy, tipx )
-
-	# Now process internal nodes
-	to_cut = list( phy )
-	while ( length( to_cut ) > 0 ){
-		# Pop a tree off the front of the list
-		focal = to_cut[[ 1 ]]
-		to_cut[[ 1 ]] = NULL
+	subtrees = lapply( unique( partitions ), function(partition) drop.tip( phy, which( partitions != partition ) ) )
 
 
-		target_nodes = grep( "T$", focal$node.label, perl=TRUE )
-		
-		if ( length( target_nodes ) > 0 ){
-			# Only worry about the first node, cut others in subsequent rounds.
-			# Need to add number of tips to convert from element number to node number
-			target_node = target_nodes[1] + length( focal$tip.label )
-
-			# Updated the node name to indicate that it is already processed
-			focal$node.label[ target_node - length( focal$tip.label ) ] = sub( "T$", "F", focal$node.label[ target_node - length( focal$tip.label ) ], perl=TRUE )
-
-			# Cut the tree and put the subtrees back on the stack
-			to_cut = c( cut_tree( focal, target_node ), to_cut )
-		}
-		else {
-			# The tree has no nodes to clip
-
-			# Reset the node names
-			if ( null_names ){
-				focal$node.label = NULL
-			}
-			else {
-				focal$node.label = sub( "F$", "", focal$node.label, perl=TRUE )
-			}
-
-			# Throw it on the finished stack
-			done_cutting[[ length( done_cutting ) + 1 ]] <- focal
-		}
-
-	}
-
-	# Get rid of indicators and return the list of processed trees
-
-	return( done_cutting )
+	return( subtrees )
 
 }
 

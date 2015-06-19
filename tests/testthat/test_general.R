@@ -37,8 +37,8 @@ duplications = grep( "-Y", gene_tree$node.label ) + length( gene_tree$tip.label 
 # Get their immediate descendants, which define the clades we want to excise
 to_prune = gene_tree$edge[,2][ gene_tree$edge[,1] %in% duplications ]
 
-subgenetrees = decompose( gene_tree, to_prune )
+#subgenetrees = decompose( gene_tree, to_prune )
 
-test_that("tree with node names is successfully decomposed",{
-	expect_equal( length( subgenetrees ), 3 )
-})
+#test_that("tree with node names is successfully decomposed",{
+#	expect_equal( length( subgenetrees ), 3 )
+#})
