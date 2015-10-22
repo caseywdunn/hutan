@@ -23,7 +23,7 @@ decompose <- function( phy, x ){
 }
 
 #' Drops specified tips from a phylogeny. Like ape's drop.tip(), but it works when only a single tip is
-#  to be retained.
+#' to be retained.
 #' 
 #' @param phy The tree, as an ape phylo object
 #' @param x A vector of tip numbers to be removed.
