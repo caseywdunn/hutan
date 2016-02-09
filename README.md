@@ -15,7 +15,7 @@ ackage.
 ## Documentation
 
 See the manual, 
-[hutan-manual.pdf](https://bitbucket.org/caseywdunn/hutan/src/master/hutan-manual.pdf)
+[hutan-manual.pdf](https://github.com/caseywdunn/hutan/raw/master/hutan-manual.pdf)
 
 ## Example usage
 
