@@ -26,7 +26,7 @@ decompose <- function( phy, x ){
 #' to be retained.
 #' 
 #' @param phy The tree, as an ape phylo object
-#' @param x A vector of tip numbers to be removed.
+#' @param tip A vector of tip numbers to be removed.
 #' @return The reduced tree, as a phylo object
 safe.drop.tip <- function( phy, tip ){
 	keep = 1:length( phy$tip.label )
@@ -86,7 +86,7 @@ cut_tree <- function( phy, x ){
 #' data( siphonophore_ml )
 #' data( siphonophore_constraint )
 #' zc <- zero_constrained( siphonophore_ml, siphonophore_constraint )
-
+#' @export
 zero_constrained <- function ( phy_resolved, phy_constraint, epsilon=0.000001 ){
 	phy_resolved$edge.length[ ! compatible_edges(  phy_resolved, phy_constraint ) ] <- epsilon
 	return( phy_resolved )

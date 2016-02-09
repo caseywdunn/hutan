@@ -10,7 +10,7 @@ safe.drop.tip(phy, tip)
 \arguments{
 \item{phy}{The tree, as an ape phylo object}
 
-\item{x}{A vector of tip numbers to be removed.}
+\item{tip}{A vector of tip numbers to be removed.}
 }
 \value{
 The reduced tree, as a phylo object
