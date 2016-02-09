@@ -1,5 +1,7 @@
 # hutan: An R package for manipulation of phylogenetic trees
 
+[![Build Status](https://travis-ci.org/caseywdunn/hutan.svg?branch=master)](https://travis-ci.org/caseywdunn/hutan)
+
 There are many excellent R packages for phylogenetic analyses 
 (http://cran.r-project.org/web/views/Phylogenetics.html). Tools for 
 topological analysis and manipulation of trees are, however, 
