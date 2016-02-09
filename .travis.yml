@@ -3,3 +3,7 @@
 language: r
 warnings_are_errors: true
 sudo: required
+
+env:
+  global:
+    - R_CHECK_ARGS="--no-build-vignettes"
