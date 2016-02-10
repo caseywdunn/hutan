@@ -4,4 +4,7 @@ language: r
 warnings_are_errors: true
 sudo: required
 
+r_packages:
+  - rmarkdown
+
 # r_build_args: "--no-build-vignettes"
