@@ -20,6 +20,6 @@ Suggests:
     testthat,
     roxygen2,
     devtools,
-    knitr
-VignetteBuilder: knitr
+    rmarkdown
+VignetteBuilder: rmarkdown
 RoxygenNote: 5.0.1
