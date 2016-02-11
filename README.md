@@ -12,7 +12,7 @@ This package provides a variety of functions for topological
 manipulations and assessments of phylogenetic trees, building on 
 those already present in the 
 [ape](http://cran.r-project.org/web/packages/ape/index.html) R
-ackage.
+package.
 
 
 ## Documentation
