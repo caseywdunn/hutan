@@ -5,7 +5,7 @@
 #' @param x A vector of internal node numbers. The tree phy will be cut on each branch 
 #' that subtends each of these nodes.
 #' @return A list of phylo objects 
-decompose <- function( phy, x ){
+decompose_tree <- function( phy, x ){
 
 	# Create a vactor that indicates which subtree each tip will be in
 	partitions = rep( "r", length(phy$tip.label) )

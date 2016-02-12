@@ -22,7 +22,7 @@ test_that("monophyly is correctly evaluated",{
 })
 
 cut_nodes = c( 74, 98 ) # 74 is Forskalia, 98 is Cystonectae
-subtrees = decompose( siphonophore_ml, cut_nodes )
+subtrees = decompose_tree( siphonophore_ml, cut_nodes )
 test_that("tree is successfully decomposed",{
 	expect_equal( length( subtrees ), 3 )
 })
@@ -37,7 +37,7 @@ duplications = grep( "-Y", gene_tree$node.label ) + length( gene_tree$tip.label 
 # Get their immediate descendants, which define the clades we want to excise
 to_prune = gene_tree$edge[,2][ gene_tree$edge[,1] %in% duplications ]
 
-subgenetrees = decompose( gene_tree, to_prune )
+subgenetrees = decompose_tree( gene_tree, to_prune )
 
 test_that("tree with node names is successfully decomposed",{
 	expect_equal( length( subgenetrees ), 3 )
