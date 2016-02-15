@@ -4,7 +4,8 @@
 #' @param phy The tree to be decomposed, as an ape phylo object
 #' @param x A vector of internal node numbers. The tree phy will be cut on each branch 
 #' that subtends each of these nodes.
-#' @return A list of phylo objects 
+#' @return A list of phylo objects
+#' @export
 decompose_tree <- function( phy, x ){
 
 	# Create a vactor that indicates which subtree each tip will be in
@@ -28,6 +29,7 @@ decompose_tree <- function( phy, x ){
 #' @param phy The tree, as an ape phylo object
 #' @param tip A vector of tip numbers to be removed.
 #' @return The reduced tree, as a phylo object
+#' @export
 safe.drop.tip <- function( phy, tip ){
 	keep = 1:length( phy$tip.label )
 	keep = keep[ ! keep %in% tip ]
@@ -38,10 +40,10 @@ safe.drop.tip <- function( phy, tip ){
 	else if ( length( keep ) == 1 ){
 		# Create a one-taxon tree and return it
 		text = paste( "(", phy$tip.label[ keep ], ");" )
-		return( read.tree( text=text ) )
+		return( ape::read.tree( text=text ) )
 	}
 	else{
-		return( drop.tip( phy, tip ) )
+		return( ape::drop.tip( phy, tip ) )
 	}
 }
 
@@ -51,13 +53,14 @@ safe.drop.tip <- function( phy, tip ){
 #' @param x An internal node number. The tree phy will be cut on the branch 
 #' that subtends this nodes.
 #' @return A list of phylo objects that are the subtrees
+#' @export
 cut_tree <- function( phy, x ){
 	# Get the number of the branch that subtends the node
 	cut_branches = which( phy$edge[,2] == x )
 
 	if ( length( cut_branches ) < 1 ){
-		plot(phy)
-		nodelabels()
+		ape::plot.phylo(phy)
+		ape::nodelabels()
 		stop( paste ( "No edge subtending requested node! Requested node: ", x, sep='' ) )
 	} 
 
@@ -68,7 +71,7 @@ cut_tree <- function( phy, x ){
 	tips1 = bipartition_for_edge_by_label( cut_branches[1], phy )
 	tips2 = flip_bipartition( phy, tips1 )
 
-	return( list( drop.tip( phy, tips1 ), drop.tip( phy, tips2 ) ) )
+	return( list( ape::drop.tip( phy, tips1 ), ape::drop.tip( phy, tips2 ) ) )
 
 }
 
@@ -99,6 +102,7 @@ zero_constrained <- function ( phy_resolved, phy_constraint, epsilon=0.000001 ){
 #' @param phy2 The tree to be compared to
 #' @return A boolean vector corresponding to the edges in phy1. Each element is FALSE if 
 #' the edge is iscompatible with phy2, or TRUE if compatible.
+#' @export
 compatible_edges <- function( phy1, phy2 ){
 	
 	# First check to see that the two trees have the same tips
@@ -120,6 +124,7 @@ compatible_edges <- function( phy1, phy2 ){
 #' @param phy The tree under consideration
 #' @param x A vector of the labels of the tips in question
 #' @return A boolean, TRUE if the tips form a monophyletic group.
+#' @export
 is_monophyletic <- function( phy, x ){
 	bi_list = get_bipartitions( phy )
 	return ( is_compatible_with_set( x, bi_list, phy ) )
@@ -134,6 +139,7 @@ is_monophyletic <- function( phy, x ){
 #' @param phy A phylo object describing a tree that includes all tips under investigation. 
 #' This is used to infer the other half of each bipartition.
 #' @return TRUE if bi is compatible with all bipartition in bi_list, otherwise FALSE.
+#' @export
 is_compatible_with_set <- function( bi, bi_list, phy ) {
 
 	compatible <- lapply( bi_list, are_bipartitions_compatible, bi2=bi, phy=phy )
@@ -149,6 +155,7 @@ is_compatible_with_set <- function( bi, bi_list, phy ) {
 #' @param phy A phylo object describing a tree that includes all tips under investigation. 
 #' This is used to infer the other half of each bipartition.
 #' @return TRUE if bi1 is compatible with bi2, otherwise FALSE.
+#' @export
 are_bipartitions_compatible <- function( bi1, bi2, phy ) {
 	
 	labels = phy$tip.label
@@ -178,6 +185,7 @@ are_bipartitions_compatible <- function( bi1, bi2, phy ) {
 #' 
 #' @param phy A phylo object.
 #' @return A vector of all the tips, annotated with their names
+#' @export
 tips <- function(phy) {
 
 	t <- phy$edge[ ! phy$edge[,2] %in% phy$edge[,1] ,2]
@@ -195,6 +203,7 @@ tips <- function(phy) {
 #' @param keep_node If FALSE, do not include a in the result. 
 #' @return A vector of nodes (specified by number) that are descendants of a. Includes
 #' internal and tip nodes.
+#' @export
 descendants <- function(phy, a, keep_node=FALSE) {
 	# returns a vector of all the descendants of node a, including tips and internal nodes
 	# Based on a breadth-first search
@@ -225,6 +234,7 @@ descendants <- function(phy, a, keep_node=FALSE) {
 #' @param a The number of a node in phy.
 #' @return A vector of tip nodes (specified by number) that are descendants of a. If a is 
 #' a tip, it is the sole element of this vector.
+#' @export
 tip_descendants <- function(phy, a) {
 	# returns a vector of all the tips that are descendants of a
 	t <- tips(phy)
@@ -238,6 +248,7 @@ tip_descendants <- function(phy, a) {
 #' @param edge The number of the edge that defines the bipartition.
 #' @return A vector of tip nodes (specified by numbers) that define one half of the 
 #' bipartition (the other half is the set of tip nodes that are not in this vector).
+#' @export
 bipartition_for_edge <- function( phy, edge ){
 
 	# Not certain which of the two nodes that make up the edge is ancestor and which is 
@@ -266,6 +277,7 @@ bipartition_for_edge <- function( phy, edge ){
 #' @param edge The number of the edge that defines the bipartition.
 #' @return A vector of tip nodes (specified by labels) that define one half of the 
 #' bipartition (the other half is the set of tip nodes that are not in this vector).
+#' @export
 bipartition_for_edge_by_label <- function( edge, phy ){
 	
 	return( phy$tip.label[ bipartition_for_edge( phy, edge ) ]	 )
@@ -280,6 +292,7 @@ bipartition_for_edge_by_label <- function( edge, phy ){
 #' @param bi The bipartition.
 #' @return A vector of tip nodes (specified by labels) that define one half of the 
 #' bipartition (the other half is the set of tip nodes that are provided as bi).
+#' @export
 flip_bipartition <- function( phy, bi ){
 	
 	return( phy$tip.label[ ! phy$tip.label %in% bi ] )
@@ -293,6 +306,7 @@ flip_bipartition <- function( phy, bi ){
 #' @return A list of bipartitions for the tree. The order of the list corresponds to the 
 #' edges in phy$edge. Bipartitions are specified as a vector of the tip labels that make 
 #' up one half of the bipartition.
+#' @export
 get_bipartitions <- function( phy ){
 	# Takes a tree, returns a list of 
 	edge_nums = as.list( 1:nrow( phy$edge ) )
