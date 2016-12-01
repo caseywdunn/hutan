@@ -42,3 +42,12 @@ subgenetrees = decompose_tree( gene_tree, to_prune )
 test_that("tree with node names is successfully decomposed",{
 	expect_equal( length( subgenetrees ), 3 )
 })
+
+test_that("can calculate difference_from_calibrated",{
+	expect_true( abs(difference_from_calibrated( gene_tree, quiet=TRUE ) - 0.3048597 ) < 1e-06 )
+})
+
+test_that("result of difference_from_calibrated is 0 on already calibrated tree",{
+	expect_true( abs(difference_from_calibrated( chronos(gene_tree), quiet=TRUE ) ) < 1e-02 )
+})
+
