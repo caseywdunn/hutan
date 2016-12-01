@@ -314,3 +314,40 @@ get_bipartitions <- function( phy ){
 	return( lapply( edge_nums, bipartition_for_edge_by_label, phy=phy ) )
 	
 }
+
+#' Given two trees phy1 and phy2 with the same topology and tip labels, 
+#' get a vector that indicates which node numbers in phy2 correspond to 
+#' the nodes in phy1
+#' 
+#' @param phy1 A phylo object
+#' @param phy2 A phylo object
+#' @return A numeric vector in the order of nodes in phy1, providing 
+#' corresponding node numbers from phy2 
+#' @export
+get_corresponding_nodes <- function( phy1, phy2 ){
+	stopifnot( setequal(phy1$tip.label, phy2$tip.label) )
+
+	tip_order = match( phy1$tip.label, phy2$tip.label )
+
+	return( c(tip_order) )
+
+}
+
+#' Assesses how much phy deviates from an ultrametric tree
+#' 
+#' @param phy A phylo object
+#' @param model The model used for fitting. "discrete" is used by default for speed
+#' @param ... Additional chronos arguments
+#' @return The sum of absolute changes in branch length required 
+#' to make an ape::chronos time calbrated tree, normalized by the total branch 
+#' length of the calibrated tree. The higher the value, the more the 
+#' tree deviates from the calibrated tree.
+difference_from_calibrated <- function( phy, model="discrete", ... ){
+	
+	calibrated = ape::chronos( phy, model=model, ...)
+	scaling = sum(calibrated$edge.length) / sum(phy$edge.length)
+	phy$edge.length = phy$edge.length * scaling
+	diff = sum(abs(phy$edge.length - calibrated$edge.length))
+	return( diff/sum(calibrated$edge.length) )
+
+}
