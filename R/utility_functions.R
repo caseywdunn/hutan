@@ -352,3 +352,36 @@ difference_from_calibrated <- function( phy, model="discrete", ... ){
 	return( diff/sum(calibrated$edge.length) )
 
 }
+
+#' Repartitions lengths along edges that descend from root node so
+#' that they are equal. Useful after rooting operations that result 
+#' in branches with 0 length
+#' 
+#' @param phy A phylo object
+#' @return A phylo object with modified edge lengths
+#' @export
+slide_root_edges <- function( phy ){
+	
+	original_length = sum(phy$edge.length)
+	root_node = phy$edge[,1][ ! phy$edge[,1] %in% phy$edge[,2] ]
+	root_node = unique( root_node )
+
+	# Make sure only one root node is identified
+	stopifnot( length(root_node) == 1 )
+
+	# Identify edges that descend from root
+	from_root = phy$edge[,1] == root_node
+
+	# Make sure there are only two edges that descend from root
+	stopifnot( sum(from_root) == 2 )
+
+	total_length = sum(phy$edge.length[from_root])
+
+	new_length = total_length / 2
+	phy$edge.length[from_root] = new_length
+
+	# Make sure total branch length is unchanged
+	stopifnot( abs(sum(phy$edge.length) - original_length) < 1e-06 )
+	return(phy)
+
+}

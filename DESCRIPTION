@@ -15,7 +15,8 @@ Collate:
     'siphonophore_constraint.R'
     'siphonophore_ml.R'
 Imports:
-    ape (>= 3.3)
+    ape (>= 3.3),
+    tidyverse
 Suggests:
     testthat,
     roxygen2,
