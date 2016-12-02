@@ -342,6 +342,7 @@ get_corresponding_nodes <- function( phy1, phy2 ){
 #' to make an ape::chronos time calbrated tree, normalized by the total branch 
 #' length of the calibrated tree. The higher the value, the more the 
 #' tree deviates from the calibrated tree.
+#' @export
 difference_from_calibrated <- function( phy, model="discrete", ... ){
 	
 	calibrated = ape::chronos( phy, model=model, ...)
