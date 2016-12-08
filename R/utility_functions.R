@@ -385,3 +385,32 @@ slide_root_edges <- function( phy ){
 	return(phy)
 
 }
+
+#' For each node in the tree (including internal nodes and tips)
+#' get the shortest distance to a descendant node. Values for tip
+#' nodes should be 0.
+#' 
+#' @param phy A phylo object
+#' @return A vector with elements corresponding to each node
+#' @export
+distance_from_tip = function(phy){
+
+	max_node = max(phy$edge)
+
+	# Make sure nodes are consecutively numbered
+	stopifnot( setequal(unique(phy$edge), 1:max_node) )
+
+	# Get the pairwise distances between all nodes
+	distance_matrix = ape::dist.nodes(phy)
+	
+	ages = sapply(1:max_node, function(x) {
+		tips = hutan::tip_descendants(phy, x)
+		distances = distance_matrix[x, tips]
+		return( min(distances) )
+	})
+
+	# Make sure the tips have value 0
+	stopifnot( all( ages[1:length(phy$tip.label)]== 0) )
+
+	return(ages)
+}	

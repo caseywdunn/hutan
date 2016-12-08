@@ -51,3 +51,8 @@ test_that("result of difference_from_calibrated is 0 on already calibrated tree"
 	expect_true( abs(difference_from_calibrated( chronos(gene_tree), quiet=TRUE ) ) < 1e-02 )
 })
 
+test_that("the correct number of depths are produced",{
+	depths = distance_from_tip(gene_tree)
+	expect_equal( length(depths), 11 )
+})
+
