@@ -19,4 +19,3 @@ A boolean, TRUE if the tips form a monophyletic group.
 Test if a set of tips, specified as a vector of tip labels, forms a monophyletic 
 group in a given tree. The test is unrooted, i.e. the group can span the root.
 }
-

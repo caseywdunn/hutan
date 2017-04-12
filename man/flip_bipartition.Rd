@@ -22,4 +22,3 @@ Given a tree and a bipartition, described as a vector of tip labels on one side 
 of the bipartition, return the same bipartition but defined by the tip labels on 
 the other side of the bipartition.
 }
-

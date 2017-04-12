@@ -24,4 +24,3 @@ Check if two bipartitions drawn from trees with the same tips are compatible wit
 Each bipartition is defined as a vector of the names of the tips on one side of the
 bipartition.
 }
-

@@ -17,4 +17,3 @@ up one half of the bipartition.
 \description{
 Get a list of all the bipartitions in a tree.
 }
-

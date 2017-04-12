@@ -18,4 +18,3 @@ A list of phylo objects that are the subtrees
 \description{
 Cuts a single tree on the branch subtending a specified node
 }
-

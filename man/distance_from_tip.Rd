@@ -19,4 +19,3 @@ For each node in the tree (including internal nodes and tips)
 get the shortest distance to a descendant node. Values for tip
 nodes should be 0.
 }
-

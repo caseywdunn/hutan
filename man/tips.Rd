@@ -15,4 +15,3 @@ A vector of all the tips, annotated with their names
 \description{
 Get tips and labels of a phylo object.
 }
-

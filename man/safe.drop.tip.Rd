@@ -19,4 +19,3 @@ The reduced tree, as a phylo object
 Drops specified tips from a phylogeny. Like ape's drop.tip(), but it works when only a single tip is
 to be retained.
 }
-

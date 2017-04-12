@@ -22,4 +22,4 @@ Suggests:
     roxygen2,
     knitr
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

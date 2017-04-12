@@ -24,4 +24,3 @@ Check if bipartition bi is compatible with the bipartitions in bi_list.
 Each bipartition is defined as a vector of the names of the tips on one side of the
 bipartition.
 }
-

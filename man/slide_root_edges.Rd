@@ -19,4 +19,3 @@ Repartitions lengths along edges that descend from root node so
 that they are equal. Useful after rooting operations that result 
 in branches with 0 length
 }
-

@@ -22,4 +22,3 @@ Given two trees phy1 and phy2 with the same topology and tip labels,
 get a vector that indicates which node numbers in phy2 correspond to 
 the nodes in phy1
 }
-

@@ -28,4 +28,3 @@ data( siphonophore_ml )
 data( siphonophore_constraint )
 zc <- zero_constrained( siphonophore_ml, siphonophore_constraint )
 }
-

@@ -18,4 +18,3 @@ a tip, it is the sole element of this vector.
 \description{
 Get all the tips that are descendants of a given node in a tree.
 }
-

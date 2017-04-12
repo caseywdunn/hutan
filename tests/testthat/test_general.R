@@ -56,3 +56,32 @@ test_that("the correct number of depths are produced",{
 	expect_equal( length(depths), 11 )
 })
 
+test_that("can get the edges that connect a tip to the root",{
+	edges = ancestral_edges( siphonophore_ml, 2 )
+	expect_true( setequal( edges, c( 3, 2 ) ) )
+})
+
+test_that("can get the edges that connect a tip to the root",{
+	edges = ancestral_edges( siphonophore_ml, 10 )
+	expect_true( setequal( edges, c( 30, 29, 28, 26, 24, 23, 22, 12, 11, 10, 9, 8, 7, 6, 5, 4, 2 ) ) )
+})
+
+test_that("can get the edges that connect an internal node to the root",{
+	edges = ancestral_edges( siphonophore_ml, 65 )
+	expect_true( setequal( edges, c( 10, 9, 8, 7, 6, 5, 4, 2 ) ) )
+})
+
+test_that("can get the connecting edges for sister species",{
+	edges = connecting_edges( siphonophore_ml, 31, 32)
+	expect_true( setequal( edges, c( 71, 72 ) ) )
+})
+
+test_that("can get the connecting edges for tips that span root",{
+	edges = connecting_edges( siphonophore_ml, 1, 32)
+	expect_true( setequal( edges, c( 1, 72, 70, 69, 67, 66, 58, 57, 11, 10, 9, 8, 7, 6, 5, 4, 2 ) ) )
+})
+
+test_that("can get the connecting edges for ancestor and descendent nodes",{
+	edges = connecting_edges( siphonophore_ml, 65, 67)
+	expect_true( setequal( edges, c( 11, 12 ) ) )
+})

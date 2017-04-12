@@ -20,4 +20,3 @@ the edge is iscompatible with phy2, or TRUE if compatible.
 Identify the edges in one phylo object that are compatible with the edges in another 
 phylo object. Requires the same tip labels for each tree.
 }
-

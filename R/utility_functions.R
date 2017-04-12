@@ -414,3 +414,53 @@ distance_from_tip = function(phy){
 
 	return(ages)
 }	
+
+#' For a node in a tree, get a vector of the edges between the 
+#' node and the root
+#' 
+#' @param phy A phylo object
+#' @param node A node number
+#' @return A vector of edge numbers
+#' @export
+ancestral_edges = function(phy, node){
+	edges = c()
+	focal_node = node
+
+	# While there is an edge with child focal node, 
+	# add the edge and then sqitch the focal node to its
+	#parent.
+	while( focal_node %in% phy$edge[ ,2 ] ){
+		new_edge = which( phy$edge[ ,2 ] == focal_node )
+		edges = c( edges, new_edge )
+		focal_node = phy$edge[ new_edge, 1 ]
+	}
+
+	return(edges)
+}
+
+#' For two nodes in a tree, get a vector of the edges that 
+#' connect them
+#' 
+#' @param phy A phylo object
+#' @param node_a Number of the first node
+#' @param node_b Number of the second node
+#' @return A vector of edge numbers
+#' @export
+connecting_edges = function(phy, node_a, node_b){
+
+	# For each node, get the set of edges that connect
+	# it to the root
+	edges_a = ancestral_edges( phy, node_a )
+	edges_b = ancestral_edges( phy, node_b )
+
+	# The path between the nodes is the set of edges that
+	# are present in one but not the other, ie xor. This 
+	# can be obtained by taking the union and then removing
+	# the intersection
+	edges = setdiff(
+			union( edges_a, edges_b ),
+			intersect( edges_a, edges_b )
+		)
+
+	return(edges)
+}

@@ -20,4 +20,3 @@ internal and tip nodes.
 \description{
 Get all the descendants of a given node in a tree.
 }
-

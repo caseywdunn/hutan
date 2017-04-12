@@ -20,4 +20,3 @@ A list of phylo objects
 Decomposes a single tree into a series of subtrees designated by internal
 node numbers
 }
-

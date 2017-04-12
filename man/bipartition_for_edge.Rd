@@ -20,4 +20,3 @@ bipartition (the other half is the set of tip nodes that are not in this vector)
 Get a bipartition, described as a vector of tip numbers, from a specified tree and 
 edge number.
 }
-
