@@ -94,5 +94,5 @@ tree_set = list( t1, t2 )
 focal_tree_text = "(((a,b),c),d);"
 focal_tree = read.tree( text=focal_tree_text )
 
-
+summary_tree = map_frequency_to_subtree( tree_set, focal_tree )
 
