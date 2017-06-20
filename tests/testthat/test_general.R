@@ -85,3 +85,14 @@ test_that("can get the connecting edges for ancestor and descendent nodes",{
 	edges = connecting_edges( siphonophore_ml, 65, 67)
 	expect_true( setequal( edges, c( 11, 12 ) ) )
 })
+
+# Create tree
+
+t1 = read.tree( text="((((a@1, a@2), (b@3,b@4)),(c@5,c@6)),(d@7,d@8));" )
+t2 = read.tree( text="(((((a@1, a@2), b@3),b@4),(c@5,c@6)),(d@7,d@8));" )
+tree_set = list( t1, t2 )
+focal_tree_text = "(((a,b),c),d);"
+focal_tree = read.tree( text=focal_tree_text )
+
+
+

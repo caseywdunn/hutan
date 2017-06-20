@@ -464,3 +464,20 @@ connecting_edges = function(phy, node_a, node_b){
 
 	return(edges)
 }
+
+#' Map the split frequency from a set of trees with more than 
+#' one sequence per taxon to the edge labels of a tree with one 
+#' tip per taxon
+#' 
+#' @param tree_set A list of phylo object, with one or more tips per
+#' taxon
+#' @param focal_tree A phylo object, with one tip per taxon
+#' @return A phylo object with same topology as focal_tree 
+#' and edge labels that indicate the frequency of each edge 
+#' including tip edges
+#' @export
+map_frequency_to_subtree = function( tree_set, focal_tree ){
+	class(tree_set) <- "multiPhylo"
+	splits = bitsplits( tree_set )
+
+}
