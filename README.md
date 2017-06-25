@@ -71,3 +71,9 @@ To regenerate the pdf manual, run the following shell command in the package dir
 
     R CMD Rd2pdf . --force --output=hutan-manual.pdf
     
+## Funding
+
+This software has been developed with support from the following US National
+ Science Foundation grants:
+ 
+The evolution of gene expression and functional specialization in Siphonophora (Award Number DEB-1256695)
