@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility_functions.R
 \name{is_compatible_with_set}
 \alias{is_compatible_with_set}
-\title{Check if bipartition bi is compatible with the bipartitions in bi_list. 
+\title{Check if bipartition bi is compatible with the bipartitions in bi_list.
 Each bipartition is defined as a vector of the names of the tips on one side of the
 bipartition.}
 \usage{
@@ -13,14 +13,14 @@ is_compatible_with_set(bi, bi_list, phy)
 
 \item{bi_list}{A list of the bipartitions to be compared against.}
 
-\item{phy}{A phylo object describing a tree that includes all tips under investigation. 
+\item{phy}{A phylo object describing a tree that includes all tips under investigation.
 This is used to infer the other half of each bipartition.}
 }
 \value{
 TRUE if bi is compatible with all bipartition in bi_list, otherwise FALSE.
 }
 \description{
-Check if bipartition bi is compatible with the bipartitions in bi_list. 
+Check if bipartition bi is compatible with the bipartitions in bi_list.
 Each bipartition is defined as a vector of the names of the tips on one side of the
 bipartition.
 }

@@ -2,3 +2,4 @@
 ^cran-comments\.md$
 ^.*\.Rproj$
 ^hutan-manual\.pdf$
+^\.Rproj\.user$

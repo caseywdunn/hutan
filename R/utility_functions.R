@@ -1,8 +1,8 @@
 #' Decomposes a single tree into a series of subtrees designated by internal
 #' node numbers
-#' 
+#'
 #' @param phy The tree to be decomposed, as an ape phylo object
-#' @param x A vector of internal node numbers. The tree phy will be cut on each branch 
+#' @param x A vector of internal node numbers. The tree phy will be cut on each branch
 #' that subtends each of these nodes.
 #' @return A list of phylo objects
 #' @export
@@ -25,7 +25,7 @@ decompose_tree <- function( phy, x ){
 
 #' Drops specified tips from a phylogeny. Like ape's drop.tip(), but it works when only a single tip is
 #' to be retained.
-#' 
+#'
 #' @param phy The tree, as an ape phylo object
 #' @param tip A vector of tip numbers to be removed.
 #' @return The reduced tree, as a phylo object
@@ -48,9 +48,9 @@ safe.drop.tip <- function( phy, tip ){
 }
 
 #' Cuts a single tree on the branch subtending a specified node
-#' 
+#'
 #' @param phy The tree to be cut, as an ape phylo object
-#' @param x An internal node number. The tree phy will be cut on the branch 
+#' @param x An internal node number. The tree phy will be cut on the branch
 #' that subtends this nodes.
 #' @return A list of phylo objects that are the subtrees
 #' @export
@@ -62,11 +62,11 @@ cut_tree <- function( phy, x ){
 		ape::plot.phylo(phy)
 		ape::nodelabels()
 		stop( paste ( "No edge subtending requested node! Requested node: ", x, sep='' ) )
-	} 
+	}
 
 	if ( length( cut_branches ) > 1 ){
 		stop( "More than one subtending branch!" )
-	} 
+	}
 
 	tips1 = bipartition_for_edge_by_label( cut_branches[1], phy )
 	tips2 = flip_bipartition( phy, tips1 )
@@ -76,14 +76,14 @@ cut_tree <- function( phy, x ){
 }
 
 
-#' Generates the "zero-constrained" tree described by Susko 2014 
+#' Generates the "zero-constrained" tree described by Susko 2014
 #' (http://dx.doi.org/10.1093/molbev/msu039)
-#' 
-#' @param phy_resolved A fully resolved phylogeny stored as a phylo object, e.g. an ML 
+#'
+#' @param phy_resolved A fully resolved phylogeny stored as a phylo object, e.g. an ML
 #' tree.
 #' @param phy_constraint A partially resolved constraint tree.
 #' @param epsilon The value to replace the branch length with
-#' @return A phylo object containing a tree that is the same as phy_resolved, except that 
+#' @return A phylo object containing a tree that is the same as phy_resolved, except that
 #' the length of edges that are incompatible with phy_constraint are replaced with epsilon.
 #' @examples
 #' data( siphonophore_ml )
@@ -95,16 +95,16 @@ zero_constrained <- function ( phy_resolved, phy_constraint, epsilon=0.000001 ){
 	return( phy_resolved )
 }
 
-#' Identify the edges in one phylo object that are compatible with the edges in another 
+#' Identify the edges in one phylo object that are compatible with the edges in another
 #' phylo object. Requires the same tip labels for each tree.
-#' 
+#'
 #' @param phy1 The tree under consideration
 #' @param phy2 The tree to be compared to
-#' @return A boolean vector corresponding to the edges in phy1. Each element is FALSE if 
+#' @return A boolean vector corresponding to the edges in phy1. Each element is FALSE if
 #' the edge is iscompatible with phy2, or TRUE if compatible.
 #' @export
 compatible_edges <- function( phy1, phy2 ){
-	
+
 	# First check to see that the two trees have the same tips
 	if( setequal(phy1$tip.label, phy2$tip.label) == FALSE ) {
 		stop("Trees do not have the same tip names.")
@@ -112,15 +112,15 @@ compatible_edges <- function( phy1, phy2 ){
 
 	bi1 = get_bipartitions( phy1 )
 	bi2 = get_bipartitions( phy2 )
-	
+
 	compat = lapply( bi1, is_compatible_with_set, bi_list=bi2, phy=phy1 )
-	
+
 	return ( unlist( compat ) )
 }
 
-#' Test if a set of tips, specified as a vector of tip labels, forms a monophyletic 
+#' Test if a set of tips, specified as a vector of tip labels, forms a monophyletic
 #' group in a given tree. The test is unrooted, i.e. the group can span the root.
-#' 
+#'
 #' @param phy The tree under consideration
 #' @param x A vector of the labels of the tips in question
 #' @return A boolean, TRUE if the tips form a monophyletic group.
@@ -130,13 +130,13 @@ is_monophyletic <- function( phy, x ){
 	return ( is_compatible_with_set( x, bi_list, phy ) )
 }
 
-#' Check if bipartition bi is compatible with the bipartitions in bi_list. 
+#' Check if bipartition bi is compatible with the bipartitions in bi_list.
 #' Each bipartition is defined as a vector of the names of the tips on one side of the
 #' bipartition.
-#' 
+#'
 #' @param bi The query bipartition.
 #' @param bi_list A list of the bipartitions to be compared against.
-#' @param phy A phylo object describing a tree that includes all tips under investigation. 
+#' @param phy A phylo object describing a tree that includes all tips under investigation.
 #' This is used to infer the other half of each bipartition.
 #' @return TRUE if bi is compatible with all bipartition in bi_list, otherwise FALSE.
 #' @export
@@ -146,43 +146,43 @@ is_compatible_with_set <- function( bi, bi_list, phy ) {
 	return ( all( unlist( compatible ) ) )
 }
 
-#' Check if two bipartitions drawn from trees with the same tips are compatible with eachother. 
+#' Check if two bipartitions drawn from trees with the same tips are compatible with eachother.
 #' Each bipartition is defined as a vector of the names of the tips on one side of the
 #' bipartition.
-#' 
+#'
 #' @param bi1 The first bipartition.
 #' @param bi2 The second bipartition.
-#' @param phy A phylo object describing a tree that includes all tips under investigation. 
+#' @param phy A phylo object describing a tree that includes all tips under investigation.
 #' This is used to infer the other half of each bipartition.
 #' @return TRUE if bi1 is compatible with bi2, otherwise FALSE.
 #' @export
 are_bipartitions_compatible <- function( bi1, bi2, phy ) {
-	
+
 	labels = phy$tip.label
-	
+
 	# Take the left side of the bipartition, as given
 	left1  = bi1
-	
+
 	# Take the right side of the bipartition as all taxa not in the left side
 	right1 = labels[ ! labels %in% left1 ]
-	
+
 	# Do the same for the second bipartition
 	left2  = bi2
 	right2 = labels[ ! labels %in% left2 ]
-	
-	# Bipartition 1 is compatible with Bipartition 2 if either side of Bipartition 1 
+
+	# Bipartition 1 is compatible with Bipartition 2 if either side of Bipartition 1
 	# is a subset of either side of Bipartition 2
-	
+
 	left1_compat  = all( left1 %in% left2 ) | all( left1 %in% right2 )
 	right1_compat = all( right1 %in% left2 ) | all( right1 %in% right2 )
-	
+
 	compatible = left1_compat | right1_compat
-	
+
 	return( compatible )
 }
 
 #' Get tips and labels of a phylo object.
-#' 
+#'
 #' @param phy A phylo object.
 #' @return A vector of all the tips, annotated with their names
 #' @export
@@ -190,17 +190,17 @@ tips <- function(phy) {
 
 	t <- phy$edge[ ! phy$edge[,2] %in% phy$edge[,1] ,2]
 	t <- t[order(t)]
-	
+
 	names(t) <- phy$tip.label
-	
+
 	return(t)
 }
 
 #' Get all the descendants of a given node in a tree.
-#' 
+#'
 #' @param phy A phylo object that specifies the tree.
 #' @param a The number of a node in phy.
-#' @param keep_node If FALSE, do not include a in the result. 
+#' @param keep_node If FALSE, do not include a in the result.
 #' @return A vector of nodes (specified by number) that are descendants of a. Includes
 #' internal and tip nodes.
 #' @export
@@ -213,14 +213,14 @@ descendants <- function(phy, a, keep_node=FALSE) {
 		# dequeue first item
 		n <- q[1]
 		q <- q[q != n]
-		
+
 		# add it to the descendants vector
 		d <- append(d, n)
-		
+
 		# add it's descendants to the queue
 		q <- append(q, phy$edge[phy$edge[,1] == n,2])
 	}
-	
+
 	# Remove the original source node from the list
 	if ( ! keep_node ){
 		d <- d[d != a ]
@@ -229,10 +229,10 @@ descendants <- function(phy, a, keep_node=FALSE) {
 }
 
 #' Get all the tips that are descendants of a given node in a tree.
-#' 
+#'
 #' @param phy A phylo object that specifies the tree.
 #' @param a The number of a node in phy.
-#' @return A vector of tip nodes (specified by number) that are descendants of a. If a is 
+#' @return A vector of tip nodes (specified by number) that are descendants of a. If a is
 #' a tip, it is the sole element of this vector.
 #' @export
 tip_descendants <- function(phy, a) {
@@ -241,26 +241,26 @@ tip_descendants <- function(phy, a) {
 	return( t[ t %in% descendants( phy, a, keep_node=TRUE ) ] )
 }
 
-#' Get a bipartition, described as a vector of tip numbers, from a specified tree and 
+#' Get a bipartition, described as a vector of tip numbers, from a specified tree and
 #' edge number.
-#' 
+#'
 #' @param phy A phylo object that specifies the tree.
 #' @param edge The number of the edge that defines the bipartition.
-#' @return A vector of tip nodes (specified by numbers) that define one half of the 
+#' @return A vector of tip nodes (specified by numbers) that define one half of the
 #' bipartition (the other half is the set of tip nodes that are not in this vector).
 #' @export
 bipartition_for_edge <- function( phy, edge ){
 
-	# Not certain which of the two nodes that make up the edge is ancestor and which is 
-	# descendant. Descendant will have fewer descendant tips, so pick the node with the 
+	# Not certain which of the two nodes that make up the edge is ancestor and which is
+	# descendant. Descendant will have fewer descendant tips, so pick the node with the
 	# fewest descendants.
-	
+
 	left_node  <- phy$edge[edge,1]
 	right_node <- phy$edge[edge,2]
-	
+
 	left_tips <- tip_descendants( phy, left_node )
 	right_tips <- tip_descendants( phy, right_node )
-	
+
 	if ( length( left_tips ) < length( right_tips ) ){
 		return( left_tips )
 	}
@@ -270,59 +270,59 @@ bipartition_for_edge <- function( phy, edge ){
 
 }
 
-#' Get a bipartition, described as a vector of tip labels, from a specified tree and 
+#' Get a bipartition, described as a vector of tip labels, from a specified tree and
 #' edge number.
-#' 
+#'
 #' @param phy A phylo object that specifies the tree.
 #' @param edge The number of the edge that defines the bipartition.
-#' @return A vector of tip nodes (specified by labels) that define one half of the 
+#' @return A vector of tip nodes (specified by labels) that define one half of the
 #' bipartition (the other half is the set of tip nodes that are not in this vector).
 #' @export
 bipartition_for_edge_by_label <- function( edge, phy ){
-	
+
 	return( phy$tip.label[ bipartition_for_edge( phy, edge ) ]	 )
 
 }
 
-#' Given a tree and a bipartition, described as a vector of tip labels on one side of 
-#' of the bipartition, return the same bipartition but defined by the tip labels on 
+#' Given a tree and a bipartition, described as a vector of tip labels on one side of
+#' of the bipartition, return the same bipartition but defined by the tip labels on
 #' the other side of the bipartition.
-#' 
+#'
 #' @param phy A phylo object that specifies the tree.
 #' @param bi The bipartition.
-#' @return A vector of tip nodes (specified by labels) that define one half of the 
+#' @return A vector of tip nodes (specified by labels) that define one half of the
 #' bipartition (the other half is the set of tip nodes that are provided as bi).
 #' @export
 flip_bipartition <- function( phy, bi ){
-	
+
 	return( phy$tip.label[ ! phy$tip.label %in% bi ] )
 
 }
 
 
 #' Get a list of all the bipartitions in a tree.
-#' 
+#'
 #' @param phy A phylo object that specifies the tree.
-#' @return A list of bipartitions for the tree. The order of the list corresponds to the 
-#' edges in phy$edge. Bipartitions are specified as a vector of the tip labels that make 
+#' @return A list of bipartitions for the tree. The order of the list corresponds to the
+#' edges in phy$edge. Bipartitions are specified as a vector of the tip labels that make
 #' up one half of the bipartition.
 #' @export
 get_bipartitions <- function( phy ){
-	# Takes a tree, returns a list of 
+	# Takes a tree, returns a list of
 	edge_nums = as.list( 1:nrow( phy$edge ) )
-	
+
 	return( lapply( edge_nums, bipartition_for_edge_by_label, phy=phy ) )
-	
+
 }
 
-#' Given two trees phy1 and phy2 with the same topology and tip labels, 
-#' get a vector that indicates which node numbers in phy2 correspond to 
+#' Given two trees phy1 and phy2 with the same topology and tip labels,
+#' get a vector that indicates which node numbers in phy2 correspond to
 #' the nodes in phy1
-#' 
+#'
 #' @param phy1 A phylo object
 #' @param phy2 A phylo object
-#' @return A numeric vector in the order of nodes in phy1, providing 
-#' corresponding node numbers from phy2 
+#' @return A numeric vector in the order of nodes in phy1, providing
+#' corresponding node numbers from phy2
 #' @export
 get_corresponding_nodes <- function( phy1, phy2 ){
 	stopifnot( setequal(phy1$tip.label, phy2$tip.label) )
@@ -334,17 +334,17 @@ get_corresponding_nodes <- function( phy1, phy2 ){
 }
 
 #' Assesses how much phy deviates from an ultrametric tree
-#' 
+#'
 #' @param phy A phylo object
 #' @param model The model used for fitting. "discrete" is used by default for speed
 #' @param ... Additional chronos arguments
-#' @return The sum of absolute changes in branch length required 
-#' to make an ape::chronos time calbrated tree, normalized by the total branch 
-#' length of the calibrated tree. The higher the value, the more the 
+#' @return The sum of absolute changes in branch length required
+#' to make an ape::chronos time calbrated tree, normalized by the total branch
+#' length of the calibrated tree. The higher the value, the more the
 #' tree deviates from the calibrated tree.
 #' @export
 difference_from_calibrated <- function( phy, model="discrete", ... ){
-	
+
 	calibrated = ape::chronos( phy, model=model, ...)
 	scaling = sum(calibrated$edge.length) / sum(phy$edge.length)
 	phy$edge.length = phy$edge.length * scaling
@@ -354,14 +354,14 @@ difference_from_calibrated <- function( phy, model="discrete", ... ){
 }
 
 #' Repartitions lengths along edges that descend from root node so
-#' that they are equal. Useful after rooting operations that result 
+#' that they are equal. Useful after rooting operations that result
 #' in branches with 0 length
-#' 
+#'
 #' @param phy A phylo object
 #' @return A phylo object with modified edge lengths
 #' @export
 slide_root_edges <- function( phy ){
-	
+
 	original_length = sum(phy$edge.length)
 	root_node = phy$edge[,1][ ! phy$edge[,1] %in% phy$edge[,2] ]
 	root_node = unique( root_node )
@@ -389,7 +389,7 @@ slide_root_edges <- function( phy ){
 #' For each node in the tree (including internal nodes and tips)
 #' get the shortest distance to a descendant node. Values for tip
 #' nodes should be 0.
-#' 
+#'
 #' @param phy A phylo object
 #' @return A vector with elements corresponding to each node
 #' @export
@@ -402,7 +402,7 @@ distance_from_tip = function(phy){
 
 	# Get the pairwise distances between all nodes
 	distance_matrix = ape::dist.nodes(phy)
-	
+
 	ages = sapply(1:max_node, function(x) {
 		tips = hutan::tip_descendants(phy, x)
 		distances = distance_matrix[x, tips]
@@ -413,11 +413,11 @@ distance_from_tip = function(phy){
 	stopifnot( all( ages[1:length(phy$tip.label)]== 0) )
 
 	return(ages)
-}	
+}
 
-#' For a node in a tree, get a vector of the edges between the 
+#' For a node in a tree, get a vector of the edges between the
 #' node and the root
-#' 
+#'
 #' @param phy A phylo object
 #' @param node A node number
 #' @return A vector of edge numbers
@@ -426,7 +426,7 @@ ancestral_edges = function(phy, node){
 	edges = c()
 	focal_node = node
 
-	# While there is an edge with child focal node, 
+	# While there is an edge with child focal node,
 	# add the edge and then sqitch the focal node to its
 	#parent.
 	while( focal_node %in% phy$edge[ ,2 ] ){
@@ -438,9 +438,9 @@ ancestral_edges = function(phy, node){
 	return(edges)
 }
 
-#' For two nodes in a tree, get a vector of the edges that 
+#' For two nodes in a tree, get a vector of the edges that
 #' connect them
-#' 
+#'
 #' @param phy A phylo object
 #' @param node_a Number of the first node
 #' @param node_b Number of the second node
@@ -454,7 +454,7 @@ connecting_edges = function(phy, node_a, node_b){
 	edges_b = ancestral_edges( phy, node_b )
 
 	# The path between the nodes is the set of edges that
-	# are present in one but not the other, ie xor. This 
+	# are present in one but not the other, ie xor. This
 	# can be obtained by taking the union and then removing
 	# the intersection
 	edges = setdiff(
@@ -465,19 +465,33 @@ connecting_edges = function(phy, node_a, node_b){
 	return(edges)
 }
 
-#' Map the split frequency from a set of trees with more than 
-#' one sequence per taxon to the edge labels of a tree with one 
+#' Map the split frequency from a set of trees with more than
+#' one sequence per taxon to the edge labels of a tree with one
 #' tip per taxon
-#' 
+#'
 #' @param tree_set A list of phylo object, with one or more tips per
 #' taxon
 #' @param focal_tree A phylo object, with one tip per taxon
-#' @return A phylo object with same topology as focal_tree 
-#' and edge labels that indicate the frequency of each edge 
-#' including tip edges
+#' @return split_frequencies A vector of split frequencies for the focal tree,
+#' including those on the tips
+#' @return full_tree A phylo object, with one or more tips per taxon in a
+#' monophyletic clade, with taxons labeled on internal nodes
 #' @export
 map_frequency_to_subtree = function( tree_set, focal_tree ){
 	class(tree_set) <- "multiPhylo"
-	splits = bitsplits( tree_set )
+	splits = ape::bitsplits( tree_set )
+	l = length(focal_tree$tip.label)
 
+	labels = lapply(1:l, function(x) splits$labels[grep(paste0(focal_tree$tip.label[x], '@.'),
+	                                           splits$labels)])
+
+	trees = lapply(labels, function(x) ape::rtree(length(x), tip.label=x))
+
+	full_tree = Reduce(function(x,y) ape::bind.tree(x,y, where=1, position=0), c(list(focal_tree), trees))
+	names(focal_tree$tip.label) = focal_tree$tip.label
+	node_labeled_tree = ape::makeNodeLabel(full_tree, "u", nodeList=focal_tree$tip.label)
+	#tree_df = data.frame(node_labeled_tree) %>% dplyr::filter(isTip == FALSE)
+	clades = ape::prop.clades(node_labeled_tree, tree_set)/length(tree_set)
+	#tree_df$support = clades
+	return(list(clades, node_labeled_tree))
 }

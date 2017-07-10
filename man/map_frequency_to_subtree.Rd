@@ -2,8 +2,8 @@
 % Please edit documentation in R/utility_functions.R
 \name{map_frequency_to_subtree}
 \alias{map_frequency_to_subtree}
-\title{Map the split frequency from a set of trees with more than 
-one sequence per taxon to the edge labels of a tree with one 
+\title{Map the split frequency from a set of trees with more than
+one sequence per taxon to the edge labels of a tree with one
 tip per taxon}
 \usage{
 map_frequency_to_subtree(tree_set, focal_tree)
@@ -15,12 +15,11 @@ taxon}
 \item{focal_tree}{A phylo object, with one tip per taxon}
 }
 \value{
-A phylo object with same topology as focal_tree 
-and edge labels that indicate the frequency of each edge 
-including tip edges
+split_frequencies A vector of split frequencies for the focal tree,
+including those on the tips
 }
 \description{
-Map the split frequency from a set of trees with more than 
-one sequence per taxon to the edge labels of a tree with one 
+Map the split frequency from a set of trees with more than
+one sequence per taxon to the edge labels of a tree with one
 tip per taxon
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility_functions.R
 \name{bipartition_for_edge_by_label}
 \alias{bipartition_for_edge_by_label}
-\title{Get a bipartition, described as a vector of tip labels, from a specified tree and 
+\title{Get a bipartition, described as a vector of tip labels, from a specified tree and
 edge number.}
 \usage{
 bipartition_for_edge_by_label(edge, phy)
@@ -13,10 +13,10 @@ bipartition_for_edge_by_label(edge, phy)
 \item{phy}{A phylo object that specifies the tree.}
 }
 \value{
-A vector of tip nodes (specified by labels) that define one half of the 
+A vector of tip nodes (specified by labels) that define one half of the
 bipartition (the other half is the set of tip nodes that are not in this vector).
 }
 \description{
-Get a bipartition, described as a vector of tip labels, from a specified tree and 
+Get a bipartition, described as a vector of tip labels, from a specified tree and
 edge number.
 }

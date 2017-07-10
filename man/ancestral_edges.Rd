@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility_functions.R
 \name{ancestral_edges}
 \alias{ancestral_edges}
-\title{For a node in a tree, get a vector of the edges between the 
+\title{For a node in a tree, get a vector of the edges between the
 node and the root}
 \usage{
 ancestral_edges(phy, node)
@@ -16,6 +16,6 @@ ancestral_edges(phy, node)
 A vector of edge numbers
 }
 \description{
-For a node in a tree, get a vector of the edges between the 
+For a node in a tree, get a vector of the edges between the
 node and the root
 }

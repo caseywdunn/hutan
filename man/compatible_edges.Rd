@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility_functions.R
 \name{compatible_edges}
 \alias{compatible_edges}
-\title{Identify the edges in one phylo object that are compatible with the edges in another 
+\title{Identify the edges in one phylo object that are compatible with the edges in another
 phylo object. Requires the same tip labels for each tree.}
 \usage{
 compatible_edges(phy1, phy2)
@@ -13,10 +13,10 @@ compatible_edges(phy1, phy2)
 \item{phy2}{The tree to be compared to}
 }
 \value{
-A boolean vector corresponding to the edges in phy1. Each element is FALSE if 
+A boolean vector corresponding to the edges in phy1. Each element is FALSE if
 the edge is iscompatible with phy2, or TRUE if compatible.
 }
 \description{
-Identify the edges in one phylo object that are compatible with the edges in another 
+Identify the edges in one phylo object that are compatible with the edges in another
 phylo object. Requires the same tip labels for each tree.
 }

@@ -9,7 +9,7 @@ cut_tree(phy, x)
 \arguments{
 \item{phy}{The tree to be cut, as an ape phylo object}
 
-\item{x}{An internal node number. The tree phy will be cut on the branch 
+\item{x}{An internal node number. The tree phy will be cut on the branch
 that subtends this nodes.}
 }
 \value{

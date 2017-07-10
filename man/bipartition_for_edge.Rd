@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility_functions.R
 \name{bipartition_for_edge}
 \alias{bipartition_for_edge}
-\title{Get a bipartition, described as a vector of tip numbers, from a specified tree and 
+\title{Get a bipartition, described as a vector of tip numbers, from a specified tree and
 edge number.}
 \usage{
 bipartition_for_edge(phy, edge)
@@ -13,10 +13,10 @@ bipartition_for_edge(phy, edge)
 \item{edge}{The number of the edge that defines the bipartition.}
 }
 \value{
-A vector of tip nodes (specified by numbers) that define one half of the 
+A vector of tip nodes (specified by numbers) that define one half of the
 bipartition (the other half is the set of tip nodes that are not in this vector).
 }
 \description{
-Get a bipartition, described as a vector of tip numbers, from a specified tree and 
+Get a bipartition, described as a vector of tip numbers, from a specified tree and
 edge number.
 }

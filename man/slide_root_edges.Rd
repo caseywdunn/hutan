@@ -3,7 +3,7 @@
 \name{slide_root_edges}
 \alias{slide_root_edges}
 \title{Repartitions lengths along edges that descend from root node so
-that they are equal. Useful after rooting operations that result 
+that they are equal. Useful after rooting operations that result
 in branches with 0 length}
 \usage{
 slide_root_edges(phy)
@@ -16,6 +16,6 @@ A phylo object with modified edge lengths
 }
 \description{
 Repartitions lengths along edges that descend from root node so
-that they are equal. Useful after rooting operations that result 
+that they are equal. Useful after rooting operations that result
 in branches with 0 length
 }

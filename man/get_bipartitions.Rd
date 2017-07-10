@@ -10,8 +10,8 @@ get_bipartitions(phy)
 \item{phy}{A phylo object that specifies the tree.}
 }
 \value{
-A list of bipartitions for the tree. The order of the list corresponds to the 
-edges in phy$edge. Bipartitions are specified as a vector of the tip labels that make 
+A list of bipartitions for the tree. The order of the list corresponds to the
+edges in phy$edge. Bipartitions are specified as a vector of the tip labels that make
 up one half of the bipartition.
 }
 \description{

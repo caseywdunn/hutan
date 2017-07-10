@@ -31,7 +31,7 @@ test_that("tree is successfully decomposed",{
 treetext = "((Prayidae_D27SS7@1152004:0.310638840467,(Hippopodius_hippopus@867239:0.242845544461,(Craseoa_lathetica@180617:1.21823973672E-6,Prayidae_D27D2@922608:0.013252166117)n38047893-N-100:0.143340517912)n38047889-N-83:0.0697164264107)n38047887-Y-100:0.155909099947,(Kephyes_ovata@1402412:0.0624504448762,Chuniphyes_multidentata@278022:0.247764507969)n38047885-N-100:0.155909099947)n38048123-N;"
 gene_tree = read.tree( text=treetext )
 
-# Identify duplicated nodes 
+# Identify duplicated nodes
 duplications = grep( "-Y", gene_tree$node.label ) + length( gene_tree$tip.label )
 
 # Get their immediate descendants, which define the clades we want to excise
@@ -94,5 +94,17 @@ tree_set = list( t1, t2 )
 focal_tree_text = "(((a,b),c),d);"
 focal_tree = read.tree( text=focal_tree_text )
 
-summary_tree = map_frequency_to_subtree( tree_set, focal_tree )
+frequencies = map_frequency_to_subtree( tree_set, focal_tree )
+split_frequencies = frequencies[[1]]
+node_labeled_tree = frequencies[[2]]
+test_that("there are 7 split frequencies", {
+  expect_equal(length(split_frequencies), 7)
+})
 
+test_that("split frequency for a is 1", {
+  expect_equal(split_frequencies[which(node_labeled_tree$node.label=="a")], 1)
+})
+
+test_that("split frequency for b is 0.5", {
+  expect_equal(split_frequencies[which(node_labeled_tree$node.label=="b")], 0.5)
+})
