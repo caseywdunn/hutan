@@ -85,3 +85,13 @@ test_that("can get the connecting edges for ancestor and descendent nodes",{
 	edges = connecting_edges( siphonophore_ml, 65, 67)
 	expect_true( setequal( edges, c( 11, 12 ) ) )
 })
+
+gene_tree_ultametric = chronos( gene_tree )
+test_that("extended ultrametric tree is still ultrametric",{
+	expect_true(  
+		is.ultrametric( 
+			extend_terminal_branches( gene_tree_ultametric, 1 ) 
+		) 
+	)
+})
+
