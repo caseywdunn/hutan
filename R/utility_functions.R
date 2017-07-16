@@ -464,3 +464,17 @@ connecting_edges = function(phy, node_a, node_b){
 
 	return(edges)
 }
+
+#' Extends each terminal branch by specified length
+#' 
+#' @param phy A phylogeny in ape::phylo format
+#' @param x Amount to extend each branch by
+#' @return A phylogeny in ape::phylo format
+#' @export
+extend_terminal_branches = function( phy, x ){
+
+	is_terminal = phy$edge[ , 2 ] %in% 1:length( phy$tip.label )
+	phy$edge.length[ is_terminal ] = phy$edge.length[ is_terminal ] + x
+	return( phy )
+
+}
