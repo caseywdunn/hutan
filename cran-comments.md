@@ -2,6 +2,7 @@
 * macOS 10.12.5, R 3.4.1
 * debian 9.0, R 3.4.1
 * windows 10, R 3.4.1
+* windows server 2008 (on build_win, R 3.4.0
 * ubuntu 12.04 (on travis-ci), R 3.4.0
 
 ## R CMD check results
