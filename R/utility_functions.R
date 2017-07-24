@@ -146,7 +146,7 @@ is_compatible_with_set <- function( bi, bi_list, phy ) {
 	return ( all( unlist( compatible ) ) )
 }
 
-#' Check if two bipartitions drawn from trees with the same tips are compatible with eachother. 
+#' Check if two bipartitions drawn from trees with the same tips are compatible with each other. 
 #' Each bipartition is defined as a vector of the names of the tips on one side of the
 #' bipartition.
 #' 
@@ -339,7 +339,7 @@ get_corresponding_nodes <- function( phy1, phy2 ){
 #' @param model The model used for fitting. "discrete" is used by default for speed
 #' @param ... Additional chronos arguments
 #' @return The sum of absolute changes in branch length required 
-#' to make an ape::chronos time calbrated tree, normalized by the total branch 
+#' to make an ape::chronos time calibrated tree, normalized by the total branch 
 #' length of the calibrated tree. The higher the value, the more the 
 #' tree deviates from the calibrated tree.
 #' @export

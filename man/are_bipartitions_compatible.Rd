@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility_functions.R
 \name{are_bipartitions_compatible}
 \alias{are_bipartitions_compatible}
-\title{Check if two bipartitions drawn from trees with the same tips are compatible with eachother. 
+\title{Check if two bipartitions drawn from trees with the same tips are compatible with each other. 
 Each bipartition is defined as a vector of the names of the tips on one side of the
 bipartition.}
 \usage{
@@ -20,7 +20,7 @@ This is used to infer the other half of each bipartition.}
 TRUE if bi1 is compatible with bi2, otherwise FALSE.
 }
 \description{
-Check if two bipartitions drawn from trees with the same tips are compatible with eachother. 
+Check if two bipartitions drawn from trees with the same tips are compatible with each other. 
 Each bipartition is defined as a vector of the names of the tips on one side of the
 bipartition.
 }

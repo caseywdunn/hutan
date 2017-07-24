@@ -15,7 +15,7 @@ difference_from_calibrated(phy, model = "discrete", ...)
 }
 \value{
 The sum of absolute changes in branch length required 
-to make an ape::chronos time calbrated tree, normalized by the total branch 
+to make an ape::chronos time calibrated tree, normalized by the total branch 
 length of the calibrated tree. The higher the value, the more the 
 tree deviates from the calibrated tree.
 }
