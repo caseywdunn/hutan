@@ -479,19 +479,39 @@ connecting_edges = function(phy, node_a, node_b){
 #' @export
 map_frequency_to_subtree = function( tree_set, focal_tree ){
 	class(tree_set) <- "multiPhylo"
-	splits = ape::bitsplits( tree_set )
-	l = length(focal_tree$tip.label)
-
-	labels = lapply(1:l, function(x) splits$labels[grep(paste0(focal_tree$tip.label[x], '@.'),
-	                                           splits$labels)])
-
-	trees = lapply(labels, function(x) ape::rtree(length(x), tip.label=x))
-
-	full_tree = Reduce(function(x,y) ape::bind.tree(x,y, where=1, position=0), c(list(focal_tree), trees))
-	names(focal_tree$tip.label) = focal_tree$tip.label
-	node_labeled_tree = ape::makeNodeLabel(full_tree, "u", nodeList=focal_tree$tip.label)
-	#tree_df = data.frame(node_labeled_tree) %>% dplyr::filter(isTip == FALSE)
-	clades = ape::prop.clades(node_labeled_tree, tree_set)/length(tree_set)
-	#tree_df$support = clades
-	return(list(clades, node_labeled_tree))
+	n_trees = length(tree_set)
+	pp <- ape::prop.part(tree_set)
+	labels = attr(pp, "labels")
+	count = attr(pp, "number")
+	taxon = sapply(strsplit(labels, "@"), "[[", 1)
+	
+	focal_pp <- ape::prop.part(focal_tree)
+	focal_labels <- attr(focal_pp, "labels")
+	
+	partitions = sapply(focal_pp, function(x) {
+	  # labels for focal partition = focal_labels[x]
+	  l = focal_labels[x]
+	  # indices in pp for labels = which(taxon %in% focal_partition_labels)
+	  indices = which(taxon %in% l)
+	  #bipart1 = which(indices)
+	  #bipart2 = which(!indices)
+	  # partition
+	  which(sapply(pp, function(y) identical(y, indices)))
+	  })
+	
+	partition_freq = sapply(partitions, function(x) {
+	  c = count[x]/n_trees
+	  if(length(x) == 0) { c = 0 }
+	  return(c)
+	})
+	
+	tip_freq = sapply(focal_labels, function(x) {
+	  indices = which(taxon %in% x)
+	  p = which(sapply(pp, function(y) identical(y, indices)))
+	  c = count[p]/n_trees
+	  if(length(p) == 0) { c = 0 }
+	  return(c)
+	})
+	
+	return(list(partition_freq, tip_freq))
 }

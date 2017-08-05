@@ -94,17 +94,17 @@ tree_set = list( t1, t2 )
 focal_tree_text = "(((a,b),c),d);"
 focal_tree = read.tree( text=focal_tree_text )
 
-frequencies = map_frequency_to_subtree( tree_set, focal_tree )
-split_frequencies = frequencies[[1]]
-node_labeled_tree = frequencies[[2]]
-test_that("there are 7 split frequencies", {
-  expect_equal(length(split_frequencies), 7)
+freq = map_frequency_to_subtree( tree_set, focal_tree )
+partition_freq = freq[[1]]
+tip_freq = freq[[2]]
+test_that("there are 3 split frequencies", {
+  expect_equal(length(partition_freq), 3)
 })
 
 test_that("split frequency for a is 1", {
-  expect_equal(split_frequencies[which(node_labeled_tree$node.label=="a")], 1)
+  expect_equal(tip_freq["a"], c(a=1))
 })
 
 test_that("split frequency for b is 0.5", {
-  expect_equal(split_frequencies[which(node_labeled_tree$node.label=="b")], 0.5)
+  expect_equal(tip_freq["b"], c(b=0.5))
 })
