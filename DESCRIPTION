@@ -16,7 +16,10 @@ Collate:
     'siphonophore_ml.R'
 Imports:
     ape (>= 3.3),
-    tidyverse
+    tidyverse,
+    magrittr,
+    geiger,
+    phytools
 Suggests:
     testthat,
     roxygen2,
