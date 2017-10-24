@@ -574,13 +574,17 @@ sim_diffs = function( phy, model_parameters, model_method="BM" ){
 #' @param x A numeric vector with one trait value per tip
 #' @param phy An ape::phylo object
 #' @param model_method The model of trait evolution. Can be one of c("BM", "OU")
+#' @param model_parameters Model parameters from fitContinuous. Will estimate if not provided.
 #' @param n_replicates The number of simulations used to estimate the expected differences	
 #' @return A vector of phylogenetically independent contrasts
 #' @importFrom magrittr %>%
 #' @export
-picx = function( x, phy, model_method="BM", n_replicates = 100 ){
+picx = function( x, phy, model_method="BM", model_parameters=NA, n_replicates = 100 ){
 
-	model_parameters = geiger::fitContinuous( phy, x, model=model_method, ncores=1 )
+	if( is.na(model_parameters) ){
+		model_parameters = geiger::fitContinuous( phy, x, model=model_method, ncores=1 )
+	}
+
 	expected_diff = 
 		replicate( n_replicates, sim_diffs( phy, model_parameters, model_method ) ) %>% 
 		abs() %>% 

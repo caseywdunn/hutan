@@ -7,7 +7,8 @@ than normalize differences across nodes by branch lengths, differences
 are normalized be the expected difference obtained from replicate 
 simulations. This allows for greater model flexibility.}
 \usage{
-picx(x, phy, model_method = "BM", n_replicates = 100)
+picx(x, phy, model_method = "BM", model_parameters = NA,
+  n_replicates = 100)
 }
 \arguments{
 \item{x}{A numeric vector with one trait value per tip}
@@ -15,6 +16,8 @@ picx(x, phy, model_method = "BM", n_replicates = 100)
 \item{phy}{An ape::phylo object}
 
 \item{model_method}{The model of trait evolution. Can be one of c("BM", "OU")}
+
+\item{model_parameters}{Model parameters from fitContinuous. Will estimate if not provided.}
 
 \item{n_replicates}{The number of simulations used to estimate the expected differences}
 }
