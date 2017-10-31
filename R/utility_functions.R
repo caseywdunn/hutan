@@ -581,6 +581,8 @@ sim_diffs = function( phy, model_parameters, model_method="BM" ){
 #' @export
 picx = function( x, phy, model_method="BM", model_parameters=NA, n_replicates = 100 ){
 
+	names( x ) = phy$tip.label
+
 	if( is.na(model_parameters) ){
 		model_parameters = geiger::fitContinuous( phy, x, model=model_method, ncores=1 )
 	}
@@ -595,8 +597,7 @@ picx = function( x, phy, model_method="BM", model_parameters=NA, n_replicates = 
 	
 	if ( model_method=="BM" ){
 		ancestral_states = ape::reconstruct( x, phy, method="ML" )$ace
-	}
-	else if ( model_method=="OU" ) {
+	} else if ( model_method=="OU" ) {
 		ancestral_states = ape::reconstruct( x, phy, method="GLS_OUS" )$ace
 	}
 	
