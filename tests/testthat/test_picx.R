@@ -2,7 +2,7 @@
 
 library(hutan)
 library(ape)
-context("xpic")
+context("picx")
 
 # Prepare test data
 ## Make the tree

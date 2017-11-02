@@ -7,13 +7,15 @@ than normalize differences across nodes by branch lengths, differences
 are normalized be the expected difference obtained from replicate 
 simulations. This allows for greater model flexibility.}
 \usage{
-picx(x, phy, model_method = "BM", model_parameters = NA,
-  n_replicates = 100)
+picx(x, phy, var.contrasts = FALSE, model_method = "BM",
+  model_parameters = NA, n_replicates = 50)
 }
 \arguments{
 \item{x}{A numeric vector with one trait value per tip}
 
 \item{phy}{An ape::phylo object}
+
+\item{var.contrasts}{logical, indicates whether the expected variances of the contrasts should be returned}
 
 \item{model_method}{The model of trait evolution. Can be one of c("BM", "OU")}
 
