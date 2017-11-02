@@ -552,7 +552,7 @@ sim_diffs = function( phy, model_parameters, model_method="BM" ){
 			bounds = c(-Inf,Inf) 
 		)
 		
-		ancestral_states = ape::reconstruct( tip_states, phy, method="GLS_OUS" )$ace
+		ancestral_states = ape::reconstruct( tip_states, phy, method="GLS_OUS", alpha=model_parameters$opt$alpha )$ace
 	}
 	
 	if( is.na( ancestral_states[1] ) ){
