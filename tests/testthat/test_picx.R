@@ -24,5 +24,5 @@ pics = data.frame(
 
 r2 = summary(lm(brownian_picx~ape_pic, pics))$r.squared
 test_that("hutan::picx and ape::pic give similar result",{
-	expect_true( r2 > 0.98 )
+	expect_true( r2 > 0.95 )
 })

@@ -8,7 +8,7 @@ are normalized be the expected difference obtained from replicate
 simulations. This allows for greater model flexibility.}
 \usage{
 picx(x, phy, var.contrasts = FALSE, model_method = "BM",
-  model_parameters = NA, n_replicates = 50)
+  model_parameters = NA, n_replicates = 200)
 }
 \arguments{
 \item{x}{A numeric vector with one trait value per tip}
