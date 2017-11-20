@@ -1,0 +1,71 @@
+---
+title: "Introduction to picx"
+author: "Casey Dunn"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+## Introduction
+
+Under the Brownian Motion (BM) model of trait evolution, the expected variance of a contrast has a linear relationship to the length of the branches along which the contrast is calculated. The standard phylogenetic independent contrast (pic) takes advantage of the fact to scale all the contrasts so that they can be compared in a meaningful way throughout the tree. This makes the standard pic highly dependant on the BM model of evolution.
+
+It is often the case that investigators would like to apply pic's using a model of evolution other than BM, such as Ornstein Uhlenbeck (OU). Under other models such as OU, branch length no longer has a linear relationship to expected variance. We therefore developed an alternative simulation-based approach to scaling contrasts for alternative models. We call this approximate method picx (for "pic extended models"), and it is implemented in this package. 
+
+For each tree, the `picx()` function first estimate the model parameters from the observed data. It then simulates two hundred datasets under these parameters, recording both the internal and tip node states. It then scales the observed contrasts by the mean magnitude of the corresponding contrasts in the simulations. 
+
+## Calculating `picx` and `pic`
+
+First we get a sample tree and trait data to work with.
+
+```{r preliminaries}
+
+library(hutan)
+library(ape)
+library(ggplot2)
+
+# Prepare test data
+## Make the tree
+phy_text = "(((ENSGALP00000006308:296,ENSOANP00000015173:296)Amniota:296,(ENSMODP00000020505:296,ENSMODP00000024085:296)Euteleostomi:296)Euteleostomi:296,(((ENSGGOP00000016325:490,(((((ENSMUSP00000093719:30.66666667,ENSMUSP00000100528:30.66666667)Mus_musculus:30.66666664,ENSMUSP00000097030:61.3333333)Mus_musculus:30.6666667,((ENSPTRP00000018140:7,ENSP00000389103:7)Homininae:22,ENSMMUP00000039495:29)Catarrhini:63)Euarchontoglires:132.6666667,(ENSMMUP00000035786:92,ENSMUSP00000099541:92)Euarchontoglires:132.6666667)Eutheria:132.6666667,(((ENSMMUP00000010107:89.33333333,ENSMMUP00000009270:89.33333333)Macaca_mulatta:89.33333334,(ENSMMUP00000034357:89.33333333,ENSMMUP00000036086:89.33333333)Macaca_mulatta:89.33333334)Eutheria:89.33333333,ENSMMUP00000009522:268)Eutheria:89.33333333)Eutheria:132.6666667)Eutheria:132.6666667,((ENSMMUP00000040814:207.5555556,ENSMMUP00000034588:207.5555556)Eutheria:207.5555556,(ENSMUSP00000100709:207.5555556,ENSMUSP00000100711:207.5555556)Eutheria:207.5555556)Eutheria:207.5555556)Eutheria:132.6666667,((((ENSMMUP00000038489:128.3055556,ENSMMUP00000000543:128.3055556)Eutheria:128.3055556,ENSGGOP00000022232:256.6111111)Eutheria:128.3055556,ENSMMUP00000022209:384.9166667)Theria:128.3055556,(ENSGGOP00000025227:271.1111111,(ENSPTRP00000056551:29,ENSMMUP00000035858:29)Catarrhini:242.1111111)Eutheria:242.1111111)Theria:242.1111111)Theria:132.6666667)Euteleostomi;"
+
+phy = read.tree( text=phy_text )
+
+## make the tip values
+x = c(0.0653820383843777, 0.0581881115273513, 0.146262584851995, 0.146165720301541, 0.122051423671061, 0.061922747428527, 0.0720437904893511, 0.071819687505455, 0.116688417148195, 0.0449859561687792, 0.128921905870532, 0.125443194067582, 0.08165720212685811, 0.134465324836396, 0.341592962693034, 0.161406059961964, 0.173168792917929, 0.138992117848763, 0.190340915795125, 0.145133341227623, 1, 0.217477395678853, 0.995751317106596, 0.854659489405832, 1, 0.769083978252658, 1, 0.619784102971771, 0.882213750595532)
+
+```
+
+The syntax of `picx()` is modeled on that of `ape::pic()`:
+
+```{r pic}
+
+pics = data.frame(
+	ape_pic=ape::pic( x, phy, scaled=TRUE, var.contrasts=FALSE ),
+	brownian_picx=picx( x, phy, model_method="BM" ) ,
+	ou_picx=picx( x, phy, model_method="OU" ) 
+)
+
+```
+
+## Comparisons of `picx` and `pic` results under Brownian Motion
+
+
+
+```{r bm_plot}
+  ggplot( pics, aes(x=ape_pic, y=brownian_picx) ) +
+    geom_point()
+```
+
+```{r bm_model}
+  bm_fit = summary(lm(brownian_picx~ape_pic, pics))
+  r2 = bm_fit$r.squared
+  p = bm_fit$coefficients[2,4]
+```
+
+We validated the method by comparing `picx()` BM results to the standard `ape::pic()` results. These validations indicated a strong linear relationship between the two ($R^2=`r signif( r2, 3 )`$, $P=`r signif( p, 3 )`$).
