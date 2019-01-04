@@ -12,7 +12,7 @@ tip_descendants(phy, a)
 \item{a}{The number of a node in phy.}
 }
 \value{
-A vector of tip nodes (specified by number) that are descendants of a. If a is 
+A vector of tip nodes (specified by number) that are descendants of a. If a is
 a tip, it is the sole element of this vector.
 }
 \description{

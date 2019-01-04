@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility_functions.R
 \name{is_monophyletic}
 \alias{is_monophyletic}
-\title{Test if a set of tips, specified as a vector of tip labels, forms a monophyletic 
+\title{Test if a set of tips, specified as a vector of tip labels, forms a monophyletic
 group in a given tree. The test is unrooted, i.e. the group can span the root.}
 \usage{
 is_monophyletic(phy, x)
@@ -16,6 +16,6 @@ is_monophyletic(phy, x)
 A boolean, TRUE if the tips form a monophyletic group.
 }
 \description{
-Test if a set of tips, specified as a vector of tip labels, forms a monophyletic 
+Test if a set of tips, specified as a vector of tip labels, forms a monophyletic
 group in a given tree. The test is unrooted, i.e. the group can span the root.
 }

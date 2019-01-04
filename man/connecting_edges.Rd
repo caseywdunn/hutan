@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility_functions.R
 \name{connecting_edges}
 \alias{connecting_edges}
-\title{For two nodes in a tree, get a vector of the edges that 
+\title{For two nodes in a tree, get a vector of the edges that
 connect them}
 \usage{
 connecting_edges(phy, node_a, node_b)
@@ -18,6 +18,6 @@ connecting_edges(phy, node_a, node_b)
 A vector of edge numbers
 }
 \description{
-For two nodes in a tree, get a vector of the edges that 
+For two nodes in a tree, get a vector of the edges that
 connect them
 }

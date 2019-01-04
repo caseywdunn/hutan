@@ -10,7 +10,7 @@ decompose_tree(phy, x)
 \arguments{
 \item{phy}{The tree to be decomposed, as an ape phylo object}
 
-\item{x}{A vector of internal node numbers. The tree phy will be cut on each branch 
+\item{x}{A vector of internal node numbers. The tree phy will be cut on each branch
 that subtends each of these nodes.}
 }
 \value{

@@ -2,9 +2,9 @@
 % Please edit documentation in R/utility_functions.R
 \name{picx}
 \alias{picx}
-\title{Estimate the extended phylogenetic independent contrast. Rather 
+\title{Estimate the extended phylogenetic independent contrast. Rather
 than normalize differences across nodes by branch lengths, differences
-are normalized be the expected difference obtained from replicate 
+are normalized be the expected difference obtained from replicate
 simulations. This allows for greater model flexibility.}
 \usage{
 picx(x, phy, var.contrasts = FALSE, model_method = "BM",
@@ -27,8 +27,8 @@ picx(x, phy, var.contrasts = FALSE, model_method = "BM",
 A vector of phylogenetically independent contrasts
 }
 \description{
-Estimate the extended phylogenetic independent contrast. Rather 
+Estimate the extended phylogenetic independent contrast. Rather
 than normalize differences across nodes by branch lengths, differences
-are normalized be the expected difference obtained from replicate 
+are normalized be the expected difference obtained from replicate
 simulations. This allows for greater model flexibility.
 }

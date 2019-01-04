@@ -2,8 +2,8 @@
 % Please edit documentation in R/utility_functions.R
 \name{get_corresponding_nodes}
 \alias{get_corresponding_nodes}
-\title{Given two trees phy1 and phy2 with the same topology and tip labels, 
-get a vector that indicates which node numbers in phy2 correspond to 
+\title{Given two trees phy1 and phy2 with the same topology and tip labels,
+get a vector that indicates which node numbers in phy2 correspond to
 the nodes in phy1}
 \usage{
 get_corresponding_nodes(phy1, phy2)
@@ -14,11 +14,11 @@ get_corresponding_nodes(phy1, phy2)
 \item{phy2}{A phylo object}
 }
 \value{
-A numeric vector in the order of nodes in phy1, providing 
+A numeric vector in the order of nodes in phy1, providing
 corresponding node numbers from phy2
 }
 \description{
-Given two trees phy1 and phy2 with the same topology and tip labels, 
-get a vector that indicates which node numbers in phy2 correspond to 
+Given two trees phy1 and phy2 with the same topology and tip labels,
+get a vector that indicates which node numbers in phy2 correspond to
 the nodes in phy1
 }
