@@ -8,4 +8,12 @@ r_packages:
   - rmarkdown
   - devtools
 
+addons:
+  apt:
+    update: true
+    sources:
+      - sourceline: 'ppa:opencpu/imagemagick'
+    packages:
+      - libmagick++-dev
+
 # r_build_args: "--no-build-vignettes"
