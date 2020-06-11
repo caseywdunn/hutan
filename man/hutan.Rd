@@ -3,7 +3,6 @@
 \docType{package}
 \name{hutan}
 \alias{hutan}
-\alias{hutan-package}
 \title{hutan: A collection of tools for phylogenetic tree manipulation.}
 \description{
 The hutan package provides functions for common phylogenetic tree 

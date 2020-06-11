@@ -4,7 +4,9 @@
 \name{siphonophore_constraint}
 \alias{siphonophore_constraint}
 \title{Siphonophores constraint phylogeny.}
-\format{An ape phylo object}
+\format{
+An ape phylo object
+}
 \source{
 \url{http://dx.doi.org/10.1080/10635150500354837}
 }
